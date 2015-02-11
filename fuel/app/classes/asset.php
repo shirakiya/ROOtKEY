@@ -2,8 +2,21 @@
 
 class Asset extends \Fuel\Core\Asset
 {
+	// @var string coffeescriptのファイル名(拡張子付き)
+	protected static $_cs_filename = '';
+
+	// @var string javascriptのファイル名(拡張子付き)
+	protected static $_js_filename = '';
+
+	// @var string coffeescriptのファイルのフルパス
+	protected static $_cs_fullpath = '';
+
+	// @var string javascriptのファイルのフルパス
+	protected static $_js_fullpath = '';
+
 	// @var string コンパイル結果のjavascript
 	protected static $_js = '';
+
 
 	public static function _init()
 	{
@@ -22,9 +35,19 @@ class Asset extends \Fuel\Core\Asset
 	 */
 	public static function coffee($filename)
 	{
-		static::_compile($filename);
-		static::_write($filename);
-		return static::js($filename.'.js');
+		static::$_cs_filename = $filename.'.coffee';
+		static::$_js_filename = $filename.'.js';
+		static::$_cs_fullpath = Config::get('coffeescript.coffee_dir').static::$_cs_filename;
+		static::$_js_fullpath = Config::get('coffeescript.js_dir').static::$_js_filename;
+
+		// 既にあるファイルとの差分がある場合にコンパイル実行
+		if (File::exists(static::$_js_fullpath) && (File::get_time(static::$_cs_fullpath) > File::get_time(static::$_js_fullpath)))
+		{
+			static::_compile($filename);
+			static::_write($filename);
+		}
+
+		return static::js(static::$_js_filename);
 	}
 
 	/**
@@ -35,13 +58,8 @@ class Asset extends \Fuel\Core\Asset
 	private static function _compile($filename)
 	{
 		try {
-			// 目的のファイルの内容を文字列としてフルパスで取得
-			$coffee = File::read(Config::get('coffeescript.coffee_dir').$filename.'.coffee', true);
-
-			static::$_js = CoffeeScript\Compiler::compile($coffee, array(
-				'filename' => $filename,
-				'header'   => false,
-			));
+			$coffee = File::read(static::$_cs_fullpath, true);
+			static::$_js = CoffeeScript\Compiler::compile($coffee, array('header' => false));
 		} catch (Exception $e) {
 			Log::error($e->getMessage());
 		}
@@ -52,9 +70,8 @@ class Asset extends \Fuel\Core\Asset
 	 *
 	 * @param $filename coffeescriptのファイル名
 	 */
-	private static function _write($filename)
+	private static function _write()
 	{
-		$js_filename = $filename.'.js';
-		File::update(Config::get('coffeescript.js_dir'), $js_filename, static::$_js);
+		File::update(Config::get('coffeescript.js_dir'), static::$_js_filename, static::$_js);
 	}
 }

@@ -1,7 +1,7 @@
 (function() {
   var message;
 
-  message = 'Hello world';
+  message = 'Hello world!!';
 
   if (message.length > 1) {
     alert(massage);
