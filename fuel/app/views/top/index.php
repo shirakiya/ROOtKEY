@@ -6,6 +6,7 @@
     <title>Foundation | Welcome</title>
 	<?php echo Asset::css('foundation.min.css'); ?>
 	<?php echo Asset::js('vendor/modernizr.js'); ?>
+	<?php echo Asset::coffee('sample'); ?>
   </head>
   <body>
     <div class="row">

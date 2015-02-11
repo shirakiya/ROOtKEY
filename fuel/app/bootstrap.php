@@ -2,10 +2,9 @@
 // Bootstrap the framework DO NOT edit this
 require COREPATH.'bootstrap.php';
 
-
+Autoloader::add_core_namespace('Fuel\\App');
 Autoloader::add_classes(array(
-	// Add classes you want to override here
-	// Example: 'View' => APPPATH.'classes/view.php',
+	'Fuel\\App\\Asset' => APPPATH.'classes/asset.php',
 ));
 
 // Register the autoloader

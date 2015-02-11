@@ -106,29 +106,11 @@
                     "reference": "1.8/develop"
                 }
             }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "fuel/docs",
-                "type": "fuel-package",
-                "version": "1.7.2",
-                "dist": {
-                    "url": "https://github.com/fuel/docs/archive/1.7/master.zip",
-                    "type": "zip"
-                },
-                "source": {
-                    "url": "https://github.com/fuel/docs.git",
-                    "type": "git",
-                    "reference": "1.8/develop"
-                }
-            }
         }
     ],
     "require": {
         "php": ">=5.3.3",
         "composer/installers": "~1.0",
-        "fuel/docs": "1.7.2",
         "fuel/core": "1.7.2",
         "fuel/auth": "1.7.2",
         "fuel/email": "1.7.2",
@@ -137,7 +119,8 @@
         "fuel/parser": "1.7.2",
         "fuelphp/upload": "2.0.1",
         "monolog/monolog": "1.5.*",
-        "michelf/php-markdown": "1.4.0"
+        "michelf/php-markdown": "1.4.0",
+		"coffeescript/coffeescript": "1.3.1"
     },
     "suggest": {
         "dwoo/dwoo" : "Allow Dwoo templating with the Parser package",
