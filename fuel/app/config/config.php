@@ -18,7 +18,7 @@ return array(
 
 	// 'index_file' => false,
 
-	// 'profiling'  => false,
+	'profiling'  => true,
 
 	// 'cache_dir'       => APPPATH.'cache/',
 
@@ -108,6 +108,8 @@ return array(
 	'always_load'  => array(
 		'packages'  => array(
 			'orm',
+			'auth',
+			'opauth',
 		),
 		// 'modules'  => array(),
 		'classes'  => array(),
