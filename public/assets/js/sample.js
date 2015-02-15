@@ -3,8 +3,6 @@
 
   message = 'Hello world!!';
 
-  if (message.length > 1) {
-    alert(massage);
-  }
+  console.log(message);
 
 }).call(this);
