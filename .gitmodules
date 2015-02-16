@@ -10,3 +10,6 @@
 [submodule "fuel/packages/email"]
 	path = fuel/packages/email
 	url = git://github.com/fuel/email.git
+[submodule "fuel/packages/opauth"]
+	path = fuel/packages/opauth
+	url = git@github.com:andreoav/fuel-opauth.git
