@@ -54,7 +54,7 @@ return array(
 	'log_date_format'  => 'Y-m-d H:i:s',
 
 	'security' => array(
-		'csrf_autoload'    => true,
+		'csrf_autoload'    => false,
 		'csrf_token_key'   => 'fuel_csrf_token',
 		'csrf_expiration'  => 0,
 		'token_salt'       => 'ggLM2Q1rDm0K7dL8tBlu',

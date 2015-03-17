@@ -4,6 +4,9 @@ class Controller_Auth extends Controller
 {
     private $_config = null;
 
+	private $_facebook = 'facebook';
+	private $_twitter  = 'twitter';
+
     public function before()
     {
 	    if(!isset($this->_config)) {
@@ -48,6 +51,46 @@ class Controller_Auth extends Controller
 			}
 		}
 
+		/* ユーザーの取得処理 */
+		$strategy = strtolower($response['auth']['provider']);
+		$uid      = $response['auth']['uid'];
+
+		$user = Model_User::find('first', array(
+			'where' => array(
+				array('login_type', $strategy),
+				array("{$strategy}_id", $uid),
+			),
+		));
+
+		// ユーザーが登録されていない場合
+		if (!$user) {
+			$user = $this->_register_user($response);
+		}
+
+		Session::set('user_id', $user->id);
 		return Response::redirect('top');
+	}
+
+	/**
+	 * ユーザーをDBへ登録する
+	 *
+	 * @param array $response OAuthレスポンス
+	 * @return Model_User 登録したユーザーのModel_Userオブジェクト
+	 */
+	private function _register_user($response)
+	{
+		$strategy = strtolower($response['auth']['provider']);
+
+		$user = Model_User::forge();
+		$user->name           = $response['auth']['info']['name'];
+		$user->login_type     = $strategy;
+		if ($strategy === $this->_facebook) {
+			$user->facebook_id = $response['auth']['uid'];
+		} elseif ($strategy === $this->_twitter) {
+			$user->twitter_id = $response['auth']['uid'];
+		}
+		$user->save();
+
+		return $user;
 	}
 }

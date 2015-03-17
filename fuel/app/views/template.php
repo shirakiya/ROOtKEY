@@ -11,7 +11,9 @@
   </head>
   <body>
 	<?php // ヘッダー ?>
-	<?php echo View::forge('element/header'); ?>
+	<?php echo View::forge('element/header', array(
+		'user' => $user,
+	)); ?>
 
 	<?php echo $content; ?>
 

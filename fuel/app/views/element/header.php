@@ -9,17 +9,18 @@
 
 		<section class="top-bar-section">
 			<ul class="right">
-				<li class="login"><a href="#" data-reveal-id="login-modal">ログイン</a></li>
-				<?php // ログインしていたらドロップダウンのメニューを表示する ?>
-				<?php /* ?>
+			<?php // ログインしていたらドロップダウンのメニューを表示する ?>
+			<?php if ($user): ?>
 				<li class="has-dropdown">
-					<a href="#">右メニュー</a>
+					<a href="#">メニュー</a>
 					<ul class="dropdown">
-						<li><a href="#">First link in fropdown</a></li>
-						<li class="active"><a href="#">Active link in dropdown</a></li>
+						<li><a href="<?php echo Uri::create('mypage'); ?>">マイページ></li>
+						<li><a href="<?php echo Uri::create('logout'); ?>">ログアウト</a></li>
 					</ul>
 				<li>
-				<?php */ ?>
+			<?php else: ?>
+				<li class="login"><a href="#" data-reveal-id="login-modal">ログイン</a></li>
+			<?php endif; ?>
 			</ul>
 		</section>
 	</nav>
