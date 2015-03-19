@@ -14,7 +14,7 @@
 				<li class="has-dropdown">
 					<a href="#">メニュー</a>
 					<ul class="dropdown">
-						<li><a href="<?php echo Uri::create('mypage'); ?>">マイページ></li>
+						<li><a href="<?php echo Uri::create('mypage'); ?>">マイページ</a></li>
 						<li><a href="<?php echo Uri::create('logout'); ?>">ログアウト</a></li>
 					</ul>
 				<li>
