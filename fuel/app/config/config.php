@@ -49,7 +49,10 @@ return array(
 	// 'server_gmt_offset'  => 0,
 	'default_timezone'   => 'Asia/Tokyo',
 
-	'log_threshold'    => Fuel::L_WARNING,
+	'log_threshold'    => array(
+		Fuel::L_ERROR,
+		Fuel::L_WARNING,
+	),
 	'log_path'         => APPPATH.'logs/',
 	'log_date_format'  => 'Y-m-d H:i:s',
 
