@@ -86,5 +86,9 @@ return array(
 			'app_id'     => '397106877127277',
 			'app_secret' => '225c08c718a61e7a451bbfafebe0da4b'
 		),
+		'Twitter' => array(
+			'key'    => 'VCnoRsXFWErCAmNN3Q2E694Jk',
+			'secret' => 'gLMb8kwTT3x3IhIpkuJjF8bUmVDi07a4nVcgvpkva7Y7itYGbG',
+		),
     ),
 );

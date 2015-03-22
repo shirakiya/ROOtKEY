@@ -42,7 +42,8 @@ class Controller_Auth extends Controller
 
 		// ここらが好きに実装していい部分
 		if (array_key_exists('error', $response)) {
-			throw new HttpServerErrorException;
+			\Log::error('hogehoge');
+			//throw new HttpServerErrorException;
 		} else {
 			if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid'])) {
 				throw new HttpServerErrorException;
@@ -82,11 +83,13 @@ class Controller_Auth extends Controller
 		$strategy = strtolower($response['auth']['provider']);
 
 		$user = Model_User::forge();
-		$user->name           = $response['auth']['info']['name'];
-		$user->login_type     = $strategy;
+		$user->login_type = $strategy;
+		$user->image_url  = $response['auth']['info']['image'];
 		if ($strategy === $this->_facebook) {
+			$user->name           = $response['auth']['info']['name'];
 			$user->facebook_id = $response['auth']['uid'];
 		} elseif ($strategy === $this->_twitter) {
+			$user->name           = $response['auth']['info']['nickname'];
 			$user->twitter_id = $response['auth']['uid'];
 		}
 		$user->save();

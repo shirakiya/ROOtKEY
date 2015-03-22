@@ -6,6 +6,7 @@ class Model_User extends \Orm\Model_Soft
 		'id',
 		'name',
 		'login_type',
+		'image_url',
 		'facebook_id',
 		'twitter_id',
 		'deleted_at',

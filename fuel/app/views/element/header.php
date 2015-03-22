@@ -4,24 +4,32 @@
 			<li class="name">
 				<h1><a href="<?php echo Uri::create('top'); ?>">ROOtKEY</a></h1>
 			</li>
-			<li class="toggle-topbar menu-icon"><a href="#"><span>ログイン</span></a></li>
+			<li class="toggle-topbar menu-icon"><a href="#"><span>メニュー</span></a></li>
 		</ul>
 
 		<section class="top-bar-section">
+			<!-- Right Nav Section -->
 			<ul class="right">
 			<?php // ログインしていたらドロップダウンのメニューを表示する ?>
 			<?php if ($user): ?>
+				<li><a href="<?php echo Uri::create('/mypage'); ?>">
+					<img src="<?php echo $user->image_url; ?>" style="width:40px; -webkit-border-radius: 300px; -webkit-border-radius: 300px;"></img>
+					<?php echo $user->name; ?>
+				</a></li>
+				<li class="divider"></li>
 				<li class="has-dropdown">
 					<a href="#">メニュー</a>
 					<ul class="dropdown">
 						<li><a href="<?php echo Uri::create('mypage'); ?>">マイページ</a></li>
-						<li><a href="<?php echo Uri::create('logout'); ?>">ログアウト</a></li>
+						<li class="divider"><a href="<?php echo Uri::create('logout'); ?>">ログアウト</a></li>
 					</ul>
 				<li>
 			<?php else: ?>
+				<li class="divider"></li>
 				<li class="login"><a href="#" data-reveal-id="login-modal">ログイン</a></li>
 			<?php endif; ?>
-			</ul>
+			<li class="divider"></li>
+			</ul><!-- // Right Nav Section -->
 		</section>
 	</nav>
 </div>
@@ -36,8 +44,6 @@
 	</ul>
 	<p>ができるようになります。</p>
 	<a href="<?php echo Uri::create('auth/login/facebook'); ?>" class="button radius">Facebookログイン</a>
-	<?php /* ?>
-	<a href="#" class="button radius">Twitterログイン</a>
-	<?php */ ?>
+	<a href="<?php echo Uri::create('auth/login/twitter'); ?>" class="button radius">Twitterログイン</a>
 	<a class="close-reveal-modal">&#215;</a>
 </div>
