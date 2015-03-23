@@ -17,6 +17,9 @@
 
 	<?php echo $content; ?>
 
+	<?php // フッター ?>
+	<?php echo View::forge('element/footer'); ?>
+
 	<?php echo Asset::js('vendor/jquery.js'); ?>
 	<?php echo Asset::js('foundation.min.js'); ?>
     <script>

@@ -1,4 +1,4 @@
-<div class="contain-to-grid sticky">
+<div class="fixed">
 	<nav class="top-bar" data-topbar tole="navigation" data-option="stricky_on: large">
 		<ul class="title-area">
 			<li class="name">
@@ -28,7 +28,6 @@
 				<li class="divider"></li>
 				<li class="login"><a href="#" data-reveal-id="login-modal">ログイン</a></li>
 			<?php endif; ?>
-			<li class="divider"></li>
 			</ul><!-- // Right Nav Section -->
 		</section>
 	</nav>
