@@ -34,6 +34,7 @@
 </div>
 
 <?php // ログインモーダル ?>
+<?php if (!$user): ?>
 <div id="login-modal" class="reveal-modal small" data-reveal>
 	<h2>ログイン</h2>
 	<p>ROOtKEYにログインすると</p>
@@ -46,3 +47,4 @@
 	<a href="<?php echo Uri::create('auth/login/twitter'); ?>" class="button radius">Twitterログイン</a>
 	<a class="close-reveal-modal">&#215;</a>
 </div>
+<?php endif; ?>
