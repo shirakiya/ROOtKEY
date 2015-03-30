@@ -10,6 +10,9 @@ class Controller_Base extends Controller_Hybrid
 
 		Config::load('app', true);
 
+		// Mapsを表示するかどうかを司る(デフォルトは表示させない)
+		View::set_global('is_map_shown', false);
+
 		// ページタイトルの設定
 		$this->template->title = Config::get('app.name');
 

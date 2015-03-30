@@ -1,0 +1,68 @@
+<div class="search-box">
+	<div class="panel radius">
+		<?php echo Form::open(array('action' => Uri::create('top'), 'method' => 'get')); ?>
+		<div class="row">
+			<div class="large-8 columns">
+				<div class="row collapse prefix-radius">
+					<div class="small-3 columns">
+						<span class="prefix">出発地</span>
+					</div>
+					<div class="small-9 columns">
+						<?php echo Form::input('start', '', array('placeholder' => '出発地')); ?>
+					</div>
+				</div>
+				<div class="text-center"><i class="fa fa-caret-down"></i></div>
+				<div class="row collapse prefix-radius">
+					<div class="small-3 columns">
+						<span class="prefix">目的地</span>
+					</div>
+					<div class="small-9 columns">
+						<?php echo Form::input('end', '', array('placeholder' => '目的地')); ?>
+					</div>
+				</div>
+				<br>
+				▼ルート上の探し物を入力
+				<div class="row collapse prefix-radius">
+					<div class="small-3 columns">
+						<span class="prefix">検索ワード</span>
+					</div>
+					<div class="small-9 columns">
+						<?php echo Form::input('keyword', '', array('placeholder' => '検索ワード')); ?>
+					</div>
+				</div>
+			</div>
+			<div class="large-4 columns">
+				<div class="panel white">
+					<div class="panel-title">条件設定</div>
+					<div class="panel-body">
+						<label><strong>移動手段</strong>
+							<?php echo Form::select('mode', '', array(
+								'walk'  => '徒歩',
+								'car'   => '車',
+								'train' => '電車',
+							)); ?>
+						</label>
+						<label><strong>検索半径</strong>
+							<?php echo Form::select('radius', '', array(
+								'500'   => '500m',
+								'1000'  => '1km',
+								'2000'  => '2km',
+								'5000'  => '5km',
+								'10000' => '10km',
+							)); ?>
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-12 columns">
+				<?php echo Form::button('', '検索', array(
+					'class' => 'botton expand',
+					'type'  => 'submit'
+				)); ?>
+			</div>
+		</div>
+		<?php echo Form::close(); ?>
+	</div>
+</div>

@@ -1,0 +1,34 @@
+.content {
+  margin-top: 20px;
+}
+
+.content .rootkey-title {
+  padding-bottom: 10px;
+}
+
+.content .search-area {
+  padding-top: 30px;
+}
+
+.content .panel.white {
+  background-color: #fff;
+  padding: 0px 0px 10px 0px;
+}
+
+.content .panel.white .panel-title {
+  background-color: #f2f2f2;
+  padding: 10px 10px 3px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-bottom: 1px ridge #cccccc;
+}
+
+
+.content .panel.white .panel-body {
+  padding: 10px 10px;
+}
+
+.content .map-top {
+  width: 100%;
+  height: 400px;
+}

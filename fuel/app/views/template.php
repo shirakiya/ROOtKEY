@@ -6,9 +6,13 @@
 		<title><?php echo $title; ?></title>
 		<?php echo Asset::css('normalize.css'); ?>
 		<?php echo Asset::css('foundation.css'); ?>
+		<?php echo Asset::css('font-awesome-4.3.0/css/font-awesome.min.css'); ?>
+		<?php echo Asset::css('rootkey.css'); ?>
 		<?php echo Asset::js('vendor/modernizr.js'); ?>
+	<?php if ($is_map_shown): ?>
 		<?php echo Asset::js(Config::get('app.maps_api.show')); ?>
 		<?php echo Asset::js('rootkey/maps.js'); ?>
+	<?php endif; ?>
 	</head>
 	<body>
 		<?php // ヘッダー ?>
@@ -16,7 +20,9 @@
 			'user' => $user,
 		)); ?>
 
-		<?php echo $content; ?>
+		<div class="content">
+			<?php echo $content; ?>
+		</div>
 
 		<?php // フッター ?>
 		<?php echo View::forge('element/footer'); ?>
