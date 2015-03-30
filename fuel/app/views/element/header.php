@@ -12,10 +12,12 @@
 			<ul class="right">
 			<?php // ログインしていたらドロップダウンのメニューを表示する ?>
 			<?php if ($user): ?>
-				<li><a href="<?php echo Uri::create('/mypage'); ?>">
-					<img src="<?php echo $user->image_url; ?>" style="width:40px; -webkit-border-radius: 300px; -webkit-border-radius: 300px;"></img>
-					<?php echo $user->name; ?>
-				</a></li>
+				<li>
+					<a href="<?php echo Uri::create('/mypage'); ?>">
+						<img src="<?php echo $user->image_url; ?>" style="width:40px; -webkit-border-radius: 300px; -webkit-border-radius: 300px;"></img>
+						<?php echo $user->name; ?>
+					</a>
+				</li>
 				<li class="divider"></li>
 				<li class="has-dropdown">
 					<a href="#">メニュー</a>
