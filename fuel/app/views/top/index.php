@@ -13,7 +13,13 @@
 <div class="search-area">
 	<div class="row">
 		<div class="large-7 columns">
-		<?php echo View::forge('element/search_box'); ?>
+		<?php
+			$search_box = View::forge('element/search_box');
+			if (isset($error)) {
+				$search_box->set('error', $error);
+			}
+			echo $search_box;
+		?>
 		</div>
 		<div class="large-5 columns">
 		</div>

@@ -3,33 +3,51 @@
 		<?php echo Form::open(array('action' => Uri::create('top'), 'method' => 'get')); ?>
 		<div class="row">
 			<div class="large-8 columns">
-				<div class="row collapse prefix-radius">
-					<div class="small-3 columns">
-						<span class="prefix"><strong>出発地</strong></span>
+			<?php if (isset($error) and $error['start']): ?>
+				<label class="error"><?php echo $error['start']; ?>
+			<?php endif; ?>
+					<div class="row collapse prefix-radius">
+						<div class="small-3 columns">
+							<span class="prefix"><strong>出発地</strong></span>
+						</div>
+						<div class="small-9 columns">
+							<?php echo Form::input('start', '', array('placeholder' => '出発地')); ?>
+						</div>
 					</div>
-					<div class="small-9 columns">
-						<?php echo Form::input('start', '', array('placeholder' => '出発地')); ?>
-					</div>
-				</div>
+			<?php if (isset($error) and $error['start']): ?>
+				</label>
+			<?php endif; ?>
 				<div class="text-center"><i class="fa fa-caret-down"></i></div>
-				<div class="row collapse prefix-radius">
-					<div class="small-3 columns">
-						<span class="prefix"><strong>目的地</strong></span>
+			<?php if (isset($error) and $error['end']): ?>
+				<label class="error"><?php echo $error['end']; ?>
+			<?php endif; ?>
+					<div class="row collapse prefix-radius">
+						<div class="small-3 columns">
+							<span class="prefix"><strong>目的地</strong></span>
+						</div>
+						<div class="small-9 columns">
+							<?php echo Form::input('end', '', array('placeholder' => '目的地')); ?>
+						</div>
 					</div>
-					<div class="small-9 columns">
-						<?php echo Form::input('end', '', array('placeholder' => '目的地')); ?>
-					</div>
-				</div>
+			<?php if (isset($error) and $error['end']): ?>
+				</label>
+			<?php endif; ?>
 				<br>
 				<i class="fa fa-chevron-circle-down"></i> ルート上の探し物を入力
-				<div class="row collapse prefix-radius">
-					<div class="small-3 columns">
-						<span class="prefix"><strong>検索ワード</strong></span>
+			<?php if (isset($error) and $error['keyword']): ?>
+				<label class="error"><?php echo $error['keyword']; ?>
+			<?php endif; ?>
+					<div class="row collapse prefix-radius">
+						<div class="small-3 columns">
+							<span class="prefix"><strong>検索ワード</strong></span>
+						</div>
+						<div class="small-9 columns">
+							<?php echo Form::input('keyword', '', array('placeholder' => '検索ワード')); ?>
+						</div>
 					</div>
-					<div class="small-9 columns">
-						<?php echo Form::input('keyword', '', array('placeholder' => '検索ワード')); ?>
-					</div>
-				</div>
+			<?php if (isset($error) and $error['keyword']): ?>
+				</label>
+			<?php endif; ?>
 			</div>
 			<div class="large-4 columns">
 				<div class="panel white">
