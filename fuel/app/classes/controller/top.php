@@ -9,7 +9,17 @@ class Controller_Top extends Controller_Base
 
 	public function action_index()
 	{
+		// 検索パラメータの初期値
+		$params = array(
+			'start'   => '',
+			'end'     => '',
+			'keyword' => '',
+			'mode'    => 'walk',
+			'radius'  => '500',
+		);
+
 		$this->template->content = View::forge('top/index');
+		$this->template->content->set_global('params', $params);
 
 		// 検索処理でない場合はここで処理が終了
 		if (!Input::get('mode') && !Input::get('radius')) {
@@ -18,6 +28,9 @@ class Controller_Top extends Controller_Base
 
 		/* Validation */
 		$params = Input::get();
+
+		// 入力パラメータに上書き
+		$this->template->content->set_global('params', $params);
 
 		$val = Validation::forge();
 		$val->add_field('start', '出発地', 'required|max_length[50]');
@@ -32,8 +45,11 @@ class Controller_Top extends Controller_Base
 		));
 
 		if (!$is_valid) {
-			$this->template->content->set('error', $val->error());
+			$this->template->set_global('error', $val->error());
 			return;
 		}
+
+		View::set_global('is_map_shown', true);
+		$this->template->content = Presenter::forge('top/index')->set('params', $params);
 	}
 }

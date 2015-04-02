@@ -9,6 +9,7 @@ class Controller_Base extends Controller_Hybrid
 		parent::before();
 
 		Config::load('app', true);
+		Lang::load('app', true);
 
 		// Mapsを表示するかどうかを司る(デフォルトは表示させない)
 		View::set_global('is_map_shown', false);
