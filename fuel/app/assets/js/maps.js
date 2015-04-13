@@ -5,7 +5,6 @@ function initialize() {
   directionsDisplay = new google.maps.DirectionsRenderer();
 	var mapOptions = {
 		center: new google.maps.LatLng(35.617932, 139.722558),
-		//zoom: 12,
 		scrollwheel: true,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
@@ -15,6 +14,7 @@ function initialize() {
 
   start  = $("#form_start").val();
   end    = $("#form_end").val();
+  mode   = $("#form_mode option:selected").val();
   radius = parseInt($("#form_radius option:selected").val());
 
   var markerInfo = JSON.parse($("#marker_info").text());
@@ -58,10 +58,19 @@ function initialize() {
 }
 
 function calcRoute() {
+  var selectMode = "";
+  if (mode === "driving") {
+    selectMode = google.maps.TravelMode.DRIVING;
+  } else if (mode === "walking") {
+    selectMode = google.maps.TravelMode.WALKING;
+  } else if (mode === "bycycling") {
+    selectMode = google.maps.TravelMode.BICYCLING;
+  }
+
   var request = {
     origin      : start,
     destination : end,
-    travelMode  : google.maps.TravelMode.DRIVING,
+    travelMode  : selectMode,
     avoidTolls  : true
   };
   directionsService.route(request,function(result,status) {
@@ -73,9 +82,13 @@ function calcRoute() {
 
 function attachMessage(marker,msg) {
   google.maps.event.addListener(marker,'click',function(event) {
-    new google.maps.InfoWindow({
+    if (typeof(infoWindow) != "undefined") {
+      infoWindow.close();
+    }
+    infoWindow = new google.maps.InfoWindow({
       content : msg
-    }).open(marker.getMap(),marker);
+    });
+    infoWindow.open(marker.getMap(),marker);
   });
 }
 

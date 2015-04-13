@@ -14,7 +14,7 @@ class Controller_Top extends Controller_Base
 			'start'   => '',
 			'end'     => '',
 			'keyword' => '',
-			'mode'    => 'walk',
+			'mode'    => 'driving',
 			'radius'  => '500',
 		);
 

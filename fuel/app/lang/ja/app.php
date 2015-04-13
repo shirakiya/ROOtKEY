@@ -1,6 +1,12 @@
 <?php
 
 return array(
+	'mode' => array(
+		'walking' => '徒歩',
+		'driving' => '車',
+		'bycycling' => '自転車',
+	),
+
 	'message' => array(
 		// エラーメッセージ
 		'error' => array(

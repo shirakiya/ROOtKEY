@@ -4,6 +4,7 @@ class Presenter_Top_Index extends Presenter
 {
 	public function view()
 	{
+		/** Directions検索 **/
 		$directions = Googlemaps::forge('directions');
 		$directions->execute($this->params);
 
@@ -16,10 +17,13 @@ class Presenter_Top_Index extends Presenter
 			return;
 		}
 
+		/** Places検索座標の導出 **/
 		$legs = $directions->get_legs();
 		$steps = $legs['steps'];
 		$radius = $this->params['radius'];
+		$search_co = array();  // Places検索を行う座標を保持する配列
 
+		// 全行程の始点/終点/全行程距離を取り出しやすいように配列にする
 		$whole_process = array(
 			'dep_lat'      => $legs['start_location']['lat'],
 			'dep_lng'      => $legs['start_location']['lng'],
@@ -28,14 +32,16 @@ class Presenter_Top_Index extends Presenter
 			'sum_distance' => $legs['distance']['value'],
 		);
 
-		$search_co = array(array(
+		// 始点はPlaces検索をかける
+		$search_co[] = array(
 			'lat' => $whole_process['dep_lat'],
 			'lng' => $whole_process['dep_lng'],
-		));
+		);
 
+		// 全行程距離が検索円の直径(始点と終点でPlaces検索を行うので直径を使う)よりも大きな場合はPlaces検索座標を分割する
 		if ($whole_process['sum_distance'] > (2 * $radius)) {
-			$accumulated_value = 0;
-			$step_co = array();
+			$accumulated_value = 0;  // 分割計算上の積算距離
+			$step_co = array();      // 分割行程の始点座標と終点座標
 
 			foreach ($legs['steps'] as $step) {
 				$step_co = array(
@@ -52,7 +58,9 @@ class Presenter_Top_Index extends Presenter
 					$step_co['end_lng']
 				);
 
+				// 分割行程(=step)の距離が検索円の直径よりも大きい場合はさらに分割
 				if ($step_d > (2 * $radius)) {
+					// 分割行程を更に分割する(検索円の直径で割った値)
 					$split_step_num = ceil($step_d / (2 * $radius));
 
 					$inc_delta_lat = ($step_co['end_lat'] - $step_co['start_lat']) / $split_step_num;
@@ -74,25 +82,29 @@ class Presenter_Top_Index extends Presenter
 							'lng' => $step_co['start_lng'],
 						);
 					}
-					$accumulated_value = 0;
+					$accumulated_value = 0;  // 積算距離の初期化
 				}
+				// 積算距離と分割行程の距離が検索円の直径よりも大きくなった場合はPlaces検索座標として始点座標を保存
 				elseif (($accumulated_value + $step['distance']['value']) > (2 * $radius)) {
 					$search_co[] = array(
 						'lat' => $step_co['start_lat'],
 						'lng' => $step_co['start_lng'],
 					);
-					$accumulated_value = 0;
+					$accumulated_value = 0;  // 積算距離の初期化
 				}
+				// 分割行程が検索円の直径よりも小さい場合は積算距離に分割行程距離を足すのみ
 				else {
 					$accumulated_value += $step['distance']['value'];
 				}
 			}
 		}
+		// 終点座標もPlaces検索をかけるために配列に保存
 		$search_co[] = array(
 			'lat' => $step_co['start_lat'],
 			'lng' => $step_co['start_lng'],
 		);
 
+		/** Places検索 **/
 		$place_ids   = array();
 		$marker_info = array();
 

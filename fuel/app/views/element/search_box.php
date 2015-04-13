@@ -55,9 +55,10 @@
 					<div class="panel-body">
 						<label><strong>移動手段</strong>
 							<?php echo Form::select('mode', $params['mode'], array(
-								'walk'  => '徒歩',
-								'car'   => '車',
-								'train' => '電車',
+								'driving'   => '車',
+								'walking'   => '徒歩',
+								'bicycling' => '自転車',
+								//'transit'   => '公共交通機関',
 							)); ?>
 						</label>
 						<label><strong>検索半径</strong>
