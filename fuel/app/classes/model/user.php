@@ -31,4 +31,13 @@ class Model_User extends \Orm\Model_Soft
 
 	protected static $_table_name = 'users';
 
+	protected static $_has_many = array(
+		'searches' => array(
+			'key_from' => 'id',
+			'model_to' => 'Model_Search',
+			'key_to'   => 'user_id',
+			'cascade_save'   => false,
+			'cascade_delete' => true,
+		)
+	);
 }

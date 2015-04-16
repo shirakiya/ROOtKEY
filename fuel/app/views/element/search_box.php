@@ -55,9 +55,9 @@
 					<div class="panel-body">
 						<label><strong>移動手段</strong>
 							<?php echo Form::select('mode', $params['mode'], array(
-								'driving'   => '車',
-								'walking'   => '徒歩',
-								'bicycling' => '自転車',
+								Model_Search::MODE_STRING_DRIVING   => '車',
+								Model_Search::MODE_STRING_WALKING   => '徒歩',
+								Model_Search::MODE_STRING_BICYCLING => '自転車',
 								//'transit'   => '公共交通機関',
 							)); ?>
 						</label>

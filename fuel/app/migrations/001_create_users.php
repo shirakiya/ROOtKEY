@@ -18,6 +18,9 @@ class Create_users
 			'created_at'  => array('type' => 'timestamp', 'null' => false),
 			'updated_at'  => array('type' => 'timestamp', 'null' => false),
 		), array('id'), true, 'InnoDB', 'utf8_general_ci');
+
+		\DBUtil::create_index(static::$_table_name, 'name', 'idx_name');
+		\DBUtil::create_index(static::$_table_name, array('id', 'name'), 'idx_id_name');
 	}
 
 	public function down()
