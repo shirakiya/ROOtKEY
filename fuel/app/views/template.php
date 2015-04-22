@@ -9,11 +9,6 @@
 		<?php echo Asset::css('font-awesome-4.3.0/css/font-awesome.min.css'); ?>
 		<?php echo Asset::css('rootkey.css'); ?>
 		<?php echo Asset::js('vendor/modernizr.js'); ?>
-		<?php echo Asset::js(Config::get('app.maps_api.places')); ?>
-	<?php if ($is_map_shown): ?>
-		<?php echo Asset::js('rootkey/maps.js'); ?>
-	<?php endif; ?>
-		<?php echo Asset::js('rootkey/autocomplete.js'); ?>
 	</head>
 	<body>
 		<?php // ヘッダー ?>
@@ -30,6 +25,12 @@
 
 		<?php echo Asset::js('vendor/jquery.js'); ?>
 		<?php echo Asset::js('foundation.min.js'); ?>
+		<?php echo Asset::js(Config::get('app.maps_api.places')); ?>
+	<?php if ($is_map_shown): ?>
+		<?php echo Asset::js('rootkey/maps.js'); ?>
+		<?php echo Asset::js('rootkey/search_save.js'); ?>
+	<?php endif; ?>
+		<?php echo Asset::js('rootkey/autocomplete.js'); ?>
 		<script>$(document).foundation();</script>
 	</body>
 </html>

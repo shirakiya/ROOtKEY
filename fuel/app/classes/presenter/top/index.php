@@ -100,8 +100,8 @@ class Presenter_Top_Index extends Presenter
 		}
 		// 終点座標もPlaces検索をかけるために配列に保存
 		$search_co[] = array(
-			'lat' => $step_co['start_lat'],
-			'lng' => $step_co['start_lng'],
+			'lat' => $whole_process['des_lat'],
+			'lng' => $whole_process['des_lng'],
 		);
 
 		/** Places検索 **/

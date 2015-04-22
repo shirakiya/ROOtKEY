@@ -4,6 +4,7 @@ require COREPATH.'bootstrap.php';
 
 Autoloader::add_core_namespace('Fuel\\App');
 Autoloader::add_classes(array(
+	'Fuel\\App\\ApiHttpException' => APPPATH.'classes/apihttpexception.php',
 	'Fuel\\App\\Asset' => APPPATH.'classes/asset.php',
 	'Fuel\\App\\Googlemaps' => APPPATH.'classes/googlemaps.php',
 ));

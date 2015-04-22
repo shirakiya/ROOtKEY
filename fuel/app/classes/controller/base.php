@@ -2,7 +2,7 @@
 /**
  * 通常の既定Controller
  */
-class Controller_Base extends Controller_Hybrid
+class Controller_Base extends Controller_Template
 {
 	public function before()
 	{

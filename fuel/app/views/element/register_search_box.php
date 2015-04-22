@@ -1,6 +1,9 @@
 <div class="register-search-box">
-	<!--<div class="panel light">?-->
-	<?php echo Form::open(array('action' => Uri::create('mypage/register'), 'method' => 'post')); ?>
+	<?php echo Form::open(array(
+		'id'     => 'search-save',
+		'action' => Uri::create('api/search/save'),
+		'method' => 'post'
+	)); ?>
 		<fieldset>
 			<legend>検索結果の登録</legend>
 
