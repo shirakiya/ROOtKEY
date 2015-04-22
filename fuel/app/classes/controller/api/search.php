@@ -34,6 +34,7 @@ class Controller_Api_Search extends Controller_Api
 		}
 		catch (Exception $e) {
 			DB::rollback_transaction();
+			\Log::error($e->getMessage());
 			throw new ApiHttpServerErrorException;
 		}
 
