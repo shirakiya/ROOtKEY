@@ -1,5 +1,15 @@
 $(function(){
-  // submitを拾う
+  // 検索結果タイトル文字数の監視
+  $('#form_title').keyup(function(){
+    var count = $(this).val().length;
+    if (count > 0 && count <= 50) {
+      $('#button-search-save').removeAttr('disabled');
+    } else if (count == 0 || count > 50) {
+      $('#button-search-save').attr('disabled', true);
+    }
+  });
+
+  // 検索結果保存Ajax
   $('#search-save').on('submit', function(event){
     // HTMLでの送信をキャンセル
     event.preventDefault();
@@ -23,11 +33,11 @@ $(function(){
       }
     })
     .done(function(data, status, xhr){  // 成功時
-      // 成功したバナーを表示させる
+      $('#success-modal').foundation('reveal', 'open');
     })
     .fail(function(xhr, status, errorThrown){  // 失敗時
-      console.log(xhr);
-      alert(status + '：' + errorThrown);
+      $('#failed-modal .error-message').text(status + '：' + errorThrown);
+      $('#failed-modal').foundation('reveal', 'open');
     });
   });
 });

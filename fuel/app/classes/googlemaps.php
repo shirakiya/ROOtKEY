@@ -137,4 +137,29 @@ class Googlemaps
 
 		return $this->result['results'];
 	}
+
+	/**
+	 * Googlemapsのstatic image URLを返す
+	 * @static
+	 * @param string  $start 出発地点の住所
+	 * @param string  $end   到着地点の住所
+	 * @return string URL
+	 */
+	public static function get_static_image_url($start, $end, $width = 320, $height = 320)
+	{
+		$url = Uri::create(Config::get('app.maps_api.static_image'),
+			array(
+				'param1' => Config::get('app.maps_api.key'),
+				'param2' => 'false',
+				'param3' => $width.'x'.$height,
+			),
+			array(
+				'key'    => ':param1',
+				'sensor' => ':param2',
+				'size'   => ':param3',
+		));
+		$url .= '&markers=label:S|'.$start.'&markers=label:E|color:blue|'.$end;
+
+		return $url;
+	}
 }

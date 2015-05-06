@@ -82,4 +82,9 @@ class Model_Search extends \Orm\Model_Soft
 	{
 		return array_search($string, static::$_mode);
 	}
+
+	public static function get_mode_string($mode)
+	{
+		return static::$_mode[$mode];
+	}
 }

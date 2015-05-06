@@ -7,6 +7,7 @@ Autoloader::add_classes(array(
 	'Fuel\\App\\ApiHttpException' => APPPATH.'classes/apihttpexception.php',
 	'Fuel\\App\\Asset' => APPPATH.'classes/asset.php',
 	'Fuel\\App\\Googlemaps' => APPPATH.'classes/googlemaps.php',
+	'Fuel\\App\\Pagination' => APPPATH.'classes/pagination.php',
 ));
 
 // Register the autoloader
