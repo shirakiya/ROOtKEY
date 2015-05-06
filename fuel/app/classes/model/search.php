@@ -64,6 +64,14 @@ class Model_Search extends \Orm\Model_Soft
 		}
 	}
 
+	public static function get_validation()
+	{
+		$val = Validation::forge();
+		$val->add_field('title', '登録名', 'required|max_length[50]');
+
+		return $val;
+	}
+
 	/**
 	 * 文字列の移動手段を受け取り、対応する移動手段の定数値を返す
 	 * @static

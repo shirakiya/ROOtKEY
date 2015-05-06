@@ -12,16 +12,23 @@ class Controller_Api_Search extends Controller_Api
 	 */
 	public function post_save()
 	{
-		//TODO 要バリデーション
+		// 登録名のバリデーション
+		$val = Model_Search::get_validation();
 
-		$user = $this->user;
+		if (!$val->run()) {
+			\Log::error($val->error_message('title'));
+			throw new ApiHttpServerErrorException;
+		}
+
+		// 入力値の保存
 		$params = Input::post();
 
 		try {
+			//hogehoge  // エラーを返させるときにコメントを外す
 			DB::start_transaction();
 
 			$search = Model_Search::forge();
-			$search->user_id = $user->id;
+			$search->user_id = $this->user->id;
 			$search->title   = $params['title'];
 			$search->start   = $params['start'];
 			$search->end     = $params['end'];

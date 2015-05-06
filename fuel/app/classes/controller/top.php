@@ -36,6 +36,7 @@ class Controller_Top extends Controller_Base
 		$val->add_field('start', '出発地', 'required|max_length[50]');
 		$val->add_field('end', '目的地', 'required|max_length[50]');
 		$val->add_field('keyword', '検索ワード', 'required|max_length[50]');
+		// getメソッドを使う限りradiusとmodeのバリデーションを加える
 
 		// getメソッドに対するValidation実行
 		$is_valid = $val->run(array(
