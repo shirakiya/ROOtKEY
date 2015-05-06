@@ -49,3 +49,7 @@
 td.grid-3 {
   width: 100px;
 }
+td a.button {
+  width: 100%;
+  margin: auto;
+}

@@ -24,10 +24,18 @@
 		<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
 		<?php foreach ($searches as $search): ?>
 			<li class="list-mypage">
-				<!--<img class="th" src="<?php echo Googlemaps::get_static_image_url($search['start'], $search['end']); ?>">-->
-				<img class="th" src="<?php echo Googlemaps::get_static_image_url($search['start'], $search['end']); ?>">
+				<a href="<?php echo Uri::create('top'); ?>">
+					<img class="th" src="<?php echo Googlemaps::get_static_image_url($search['start'], $search['end']); ?>">
+				</a>
 				<table class="table-mypage">
 					<tbody>
+						<tr>
+							<td colspan=2>
+								<a href="<?php echo Uri::create('top'); ?>" class="button smalj radius">
+									<i class="fa fa-share"></i> 検索結果を表示する
+								</a>
+							</td>
+						</tr>
 						<tr>
 							<td class="grid-3"><strong>出発地</strong></td>
 							<td><?php echo $search['start']; ?></td>
