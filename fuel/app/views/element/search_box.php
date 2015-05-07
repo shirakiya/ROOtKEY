@@ -1,4 +1,5 @@
 <div class="search-box">
+	<h3><i class="fa fa-search"></i> 検索</h3>
 	<div class="panel radius">
 		<?php echo Form::open(array('action' => Uri::create('top'), 'method' => 'get')); ?>
 		<div class="row">
