@@ -68,7 +68,7 @@ class Model_Search extends \Orm\Model_Soft
 	 * 検索履歴登録時のvalidationオブジェクトを返す
 	 * @return Validation
 	 */
-	public static function validation()
+	public static function validate()
 	{
 		$val = Validation::forge();
 		$val->add_field('title', '登録名', 'required|max_length[50]');

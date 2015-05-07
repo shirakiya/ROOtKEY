@@ -24,7 +24,6 @@ class Controller_Api_Search extends Controller_Api
 		$params = Input::post();
 
 		try {
-			//hogehoge  // エラーを返させるときにコメントを外す
 			DB::start_transaction();
 
 			$search = Model_Search::forge();
