@@ -13,7 +13,7 @@ class Controller_Api_Search extends Controller_Api
 	public function post_save()
 	{
 		// 登録名のバリデーション
-		$val = Model_Search::get_validation();
+		$val = Model_Search::validate();
 
 		if (!$val->run()) {
 			\Log::error($val->error_message('title'));

@@ -7,12 +7,9 @@ class Presenter_Mypage_Index extends Presenter
 		// ページャー
 		Config::load('pagination', true);
 
-		$count_searches = count(DB::select()
-			->from('searches')
-			->where('user_id', '=', $this->user->id)
-			->execute()
-		);
+		$query = Model_Search::query()->where('user_id', $this->user->id);
 
+		$count_searches = $query->count();
 		$current_url = Uri::current();
 		$current_url = stripos($current_url, 'index') ? $current_url : $current_url.'/index';
 
@@ -23,15 +20,12 @@ class Presenter_Mypage_Index extends Presenter
 		$pagination = Pagination::forge('default', $config);
 
 		// 検索履歴の取得
-		$searches = DB::select()
-			->from('searches')
-			->where('deleted_at', null)
-			->where('user_id', '=', $this->user->id)
+		$searches =
+			$query
+			->order_by('id', 'DESC')
 			->limit($pagination->per_page)
 			->offset($pagination->offset)
-			->order_by('id', 'DESC')
-			->execute()
-			->as_array('id');
+			->get();
 
 		$this->set('searches', $searches);
 		$this->set('pagination', $pagination, false);

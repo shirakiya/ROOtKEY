@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="large-12 columns">
-		<h2>マイページ</h2>
-		<h5 class="subheader">　ここでは過去の検索履歴が閲覧できます。クリックすると検索画面から結果が見られます。</h5>
+		<h2><i class="fa fa-user"></i> マイページ</h2>
+		<h5 class="subheader">ここでは過去の検索履歴が閲覧できます。クリックすると検索画面から結果が見られます。</h5>
 
 		<hr>
 
@@ -24,37 +24,37 @@
 		<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
 		<?php foreach ($searches as $search): ?>
 			<li class="list-mypage">
-				<a href="<?php echo Uri::create('top'); ?>">
-					<img class="th" src="<?php echo Googlemaps::get_static_image_url($search['start'], $search['end']); ?>">
+				<a href="<?php echo $search->create_search_url_with_params(); ?>">
+					<img class="th" src="<?php echo Googlemaps::get_static_image_url($search->start, $search->end); ?>">
 				</a>
 				<table class="table-mypage">
 					<tbody>
 						<tr>
 							<td colspan=2>
-								<a href="<?php echo Uri::create('top'); ?>" class="button smalj radius">
+								<a href="<?php echo $search->create_search_url_with_params(); ?>" class="button small radius">
 									<i class="fa fa-share"></i> 検索結果を表示する
 								</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="grid-3"><strong>出発地</strong></td>
-							<td><?php echo $search['start']; ?></td>
+							<td><?php echo $search->start; ?></td>
 						</tr>
 						<tr>
 							<td class="grid-3"><strong>目的地</strong></td>
-							<td><?php echo $search['end']; ?></td>
+							<td><?php echo $search->end; ?></td>
 						</tr>
 						<tr>
 							<td class="grid-3"><strong>検索ワード</strong></td>
-							<td><?php echo $search['keyword']; ?></td>
+							<td><?php echo $search->keyword; ?></td>
 						</tr>
 						<tr>
 							<td class="grid-3"><strong>移動手段</strong></td>
-							<td><?php echo __('app.mode.'.Model_Search::get_mode_string($search['mode'])); ?></td>
+							<td><?php echo __('app.mode.'.$search->convert_mode_to_string()); ?></td>
 						</tr>
 						<tr>
 							<td class="grid-3"><strong>検索半径</strong></td>
-							<td><?php echo $search['radius']; ?></td>
+							<td><?php echo __('app.radius.km.'.$search->radius); ?></td>
 						</tr>
 					</tbody>
 				</table>

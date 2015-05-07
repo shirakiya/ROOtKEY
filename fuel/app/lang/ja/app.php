@@ -7,6 +7,16 @@ return array(
 		'bycycling' => '自転車',
 	),
 
+	'radius' => array(
+		'km' => array(
+			'500'   => '500m',
+			'1000'  => '1km',
+			'2000'  => '2km',
+			'5000'  => '5km',
+			'10000' => '10km',
+		),
+	),
+
 	'pagination' => array(
 		'count_save' => '登録件数',
 		'total_items' => '計 :param 件',

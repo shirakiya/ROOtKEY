@@ -64,12 +64,39 @@ class Model_Search extends \Orm\Model_Soft
 		}
 	}
 
-	public static function get_validation()
+	/**
+	 * 検索履歴登録時のvalidationオブジェクトを返す
+	 * @return Validation
+	 */
+	public static function validation()
 	{
 		$val = Validation::forge();
 		$val->add_field('title', '登録名', 'required|max_length[50]');
 
 		return $val;
+	}
+
+	/**
+	 * 移動手段の文字列を返す
+	 * @return string 移動手段の文字列
+	 */
+	public function convert_mode_to_string()
+	{
+		return static::get_mode_string($this->mode);
+	}
+
+	/**
+	 * 定数値の移動手段を受け取り、対応する移動手段の文字列を返す
+	 * @static
+	 * @param int $string 移動手段の定数値
+	 * @return string|false 移動手段の文字列 or 存在しない移動手段の場合はfalse
+	 */
+	public static function get_mode_string($mode)
+	{
+		if (array_key_exists((int)$mode, static::$_mode)) {
+			return static::$_mode[$mode];
+		}
+		return false;
 	}
 
 	/**
@@ -83,8 +110,27 @@ class Model_Search extends \Orm\Model_Soft
 		return array_search($string, static::$_mode);
 	}
 
-	public static function get_mode_string($mode)
+	/**
+	 * 検索時のURLパラメータを返す
+	 * @return string URLパラメータ形式の文字列 ex.) start=hoge&end=fuga
+	 */
+	public function create_search_params_for_url()
 	{
-		return static::$_mode[$mode];
+		return Uri::build_query_string(
+			array('start'   => $this->start),
+			array('end'     => $this->end),
+			array('keyword' => $this->keyword),
+			array('mode'    => $this->convert_mode_to_string()),
+			array('radius'  => $this->radius)
+		);
+	}
+
+	/**
+	 * 検索トップ画面でのURLを返す
+	 * @return string ex.) http://rootkey/top?start=hoge&end=fuga&...
+	 */
+	public function create_search_url_with_params()
+	{
+		return Uri::create('top?'.$this->create_search_params_for_url());
 	}
 }
