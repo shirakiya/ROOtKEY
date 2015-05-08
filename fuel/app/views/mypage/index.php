@@ -24,9 +24,20 @@
 		<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
 		<?php foreach ($searches as $search): ?>
 			<li class="list-mypage">
+				<table class="table-mypage">
+					<thead>
+						<tr>
+							<th>
+								<?php echo $search->title; ?>
+							</th>
+						</tr>
+					</thead>
+				</table>
+
 				<a href="<?php echo $search->create_search_url_with_params(); ?>">
 					<img class="th" src="<?php echo Googlemaps::get_static_image_url($search->start, $search->end); ?>">
 				</a>
+
 				<table class="table-mypage">
 					<tbody>
 						<tr>
@@ -55,6 +66,12 @@
 						<tr>
 							<td class="grid-3"><strong>検索半径</strong></td>
 							<td><?php echo __('app.radius.km.'.$search->radius); ?></td>
+						</tr>
+						<tr>
+							<td colspan=2>
+								<a href="#" class="search-result-title-delete"><i class="fa fa-trash"></i></a>
+								<a href="#" class="search-result-title-edit"><i class="fa fa-pencil-square-o"></i></a>
+							</td>
 						</tr>
 					</tbody>
 				</table>

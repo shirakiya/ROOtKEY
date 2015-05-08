@@ -53,3 +53,13 @@ td a.button {
   width: 100%;
   margin: auto;
 }
+
+a.search-result-title-delete {
+  color: #424242;
+  float: right;
+}
+a.search-result-title-edit {
+  color: #424242;
+  float: right;
+  padding-right: 1em;
+}
