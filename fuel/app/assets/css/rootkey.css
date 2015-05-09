@@ -1,7 +1,9 @@
+/* ALL */
 .content {
   margin-top: 20px;
 }
 
+/* top */
 .content .rootkey-title {
   padding-bottom: 10px;
 }
@@ -38,6 +40,7 @@
   width: 100%;
 }
 
+/* mypage */
 .list-mypage {
   text-align: center;
 }
@@ -54,12 +57,19 @@ td a.button {
   margin: auto;
 }
 
-a.search-result-title-delete {
+a.search-result-delete {
   color: #424242;
   float: right;
 }
-a.search-result-title-edit {
+a.search-result-edit {
   color: #424242;
   float: right;
   padding-right: 1em;
+}
+
+#search-result-title-edit-success {
+  display: none;
+}
+#search-result-title-edit-error {
+  display: none;
 }

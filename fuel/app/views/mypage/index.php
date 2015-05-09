@@ -69,8 +69,11 @@
 						</tr>
 						<tr>
 							<td colspan=2>
-								<a href="#" class="search-result-title-delete"><i class="fa fa-trash"></i></a>
-								<a href="#" class="search-result-title-edit"><i class="fa fa-pencil-square-o"></i></a>
+								<a href="#" class="search-result-delete"><i class="fa fa-trash"></i></a>
+								<a href="#" class="search-result-edit"><i class="fa fa-pencil-square-o"></i></a>
+								<script type="application/json" class="search-result-info">
+									<?php echo Format::forge($search->get_assoc_array(array('id', 'title')))->to_json(); ?>
+								</script>
 							</td>
 						</tr>
 					</tbody>
@@ -84,4 +87,29 @@
 		</div>
 
 	</div>
+</div>
+
+<div id="modal-search-result-title-edit" class="reveal-modal small" data-reveal area-hidden="true">
+	<h3><i class="fa fa-pencil"></i> 検索履歴の登録名を編集</h3>
+	<div data-alert id="search-result-title-edit-success" class="alert-box success radius">
+		登録名を編集しました。
+	</div>
+	<div data-alert id="search-result-title-edit-error" class="alert-box alert radius">
+		<i class="fa fa-exclamation-triangle"></i> 登録に失敗しました
+		<p class="error-message"></p>
+	</div>
+	<?php echo Form::open(array(
+		'id'     => 'search-result-title-edit',
+		'action' => Uri::create('api/search/save_title'),
+		'method' => 'POST',
+	)); ?>
+		<label>新しいタイトル
+			<?php echo Form::input('title', '', array('placeholder' => '検索履歴のタイトル')); ?>
+		</label>
+		<?php echo Form::hidden('id', ''); ?>
+		<?php echo Form::button('', '編集', array(
+			'class' => 'button round right',
+			'type'  => 'submit'
+		)); ?>
+	<?php echo Form::close(); ?>
 </div>

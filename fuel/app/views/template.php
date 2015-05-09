@@ -27,6 +27,7 @@
 		<?php echo Asset::js('foundation.min.js'); ?>
 		<?php echo Asset::js(Config::get('app.maps_api.places')); ?>
 		<?php echo Asset::js('rootkey/autocomplete.js'); ?>
+		<?php echo Asset::js('rootkey/mypage.js'); ?>
 	<?php if ($is_map_shown): ?>
 		<?php echo Asset::js('rootkey/maps.js'); ?>
 		<?php echo Asset::js('rootkey/search_save.js'); ?>

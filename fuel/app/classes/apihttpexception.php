@@ -2,7 +2,7 @@
 /**
  * API系のException定義
  */
-class ApiHttpException extends \Fuel\Core\Exception
+class ApiHttpException extends \Fuel\Core\HttpException
 {
 	/**
 	 * レスポンスを返す

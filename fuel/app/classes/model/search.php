@@ -66,14 +66,37 @@ class Model_Search extends \Orm\Model_Soft
 
 	/**
 	 * 検索履歴登録時のvalidationオブジェクトを返す
+	 * @param string $factory
+	 *	ex) save, save_title
 	 * @return Validation
 	 */
-	public static function validate()
+	public static function validate($factory)
 	{
 		$val = Validation::forge();
-		$val->add_field('title', '登録名', 'required|max_length[50]');
+
+		switch ($factory) {
+			case 'save':
+				$val->add_field('title', '登録名', 'required|max_length[50]');
+				break;
+			case 'save_title':
+				$val->add_callable(__class__);
+				$val->add_field('title', '登録名', 'required|max_length[50]');
+				$val->add_field('user_id', 'user_id', 'match_user_id');
+				break;
+		}
 
 		return $val;
+	}
+
+	/**
+	 * [validation method]
+	 * セッション中のユーザーと一致しているか
+	 * @param int $id ユーザーID
+	 * @return bool 一致している場合はtrue
+	 */
+	public static function _validation_match_user_id($user_id)
+	{
+		return $user_id === Session::get('user_id');
 	}
 
 	/**
@@ -132,5 +155,26 @@ class Model_Search extends \Orm\Model_Soft
 	public function create_search_url_with_params()
 	{
 		return Uri::create('top?'.$this->create_search_params_for_url());
+	}
+
+	/**
+	 * プロパティの値を連想配列にして返す
+	 * @param array $props プロパティ名の一次元配列
+	 * @return array プロパティ名 => 値 の連想配列
+	 */
+	public function get_assoc_array($props)
+	{
+		if (!is_array($props)) {
+			return false;
+		}
+
+		$array = array();
+		foreach ($props as $prop) {
+			if (in_array($prop, self::$_properties)) {
+				$array[$prop] = $this->$prop;
+			}
+		}
+
+		return $array;
 	}
 }

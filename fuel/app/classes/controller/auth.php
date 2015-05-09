@@ -42,8 +42,7 @@ class Controller_Auth extends Controller
 
 		// ここらが好きに実装していい部分
 		if (array_key_exists('error', $response)) {
-			\Log::error('hogehoge');
-			//throw new HttpServerErrorException;
+			throw new HttpServerErrorException;
 		} else {
 			if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid'])) {
 				throw new HttpServerErrorException;
