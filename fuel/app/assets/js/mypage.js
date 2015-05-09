@@ -50,6 +50,8 @@ $(function(){
     })
     .done(function(data, status, xhr){  // 成功時
       $('#search-result-title-edit-success').show('slow');
+      // 登録名を動的に変更する
+      $('table[data-id='+data.id+']').find('th').text(data.title);
       // 検索結果登録名文字数の監視の無効化
       $form.find('#form_title').data('submit-flag', 1);
     })

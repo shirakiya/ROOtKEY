@@ -24,7 +24,7 @@
 		<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
 		<?php foreach ($searches as $search): ?>
 			<li class="list-mypage">
-				<table class="table-mypage">
+				<table class="table-mypage" data-id="<?php echo $search->id; ?>">
 					<thead>
 						<tr>
 							<th>

@@ -84,6 +84,8 @@ class Controller_Api_Search extends Controller_Api
 
 		return $this->response(array(
 			'error' => 0,
+			'id'    => $params['id'],
+			'title' => $params['title'],
 		));
 	}
 }
