@@ -1,11 +1,13 @@
 $(function(){
   // 検索結果タイトル文字数の監視
   $('#form_title').keyup(function(){
-    var count = $(this).val().length;
-    if (count > 0 && count <= 50) {
-      $('#button-search-save').removeAttr('disabled');
-    } else if (count == 0 || count > 50) {
-      $('#button-search-save').attr('disabled', true);
+    if ($(this).data('submit-flag') != 1) {
+      var count = $(this).val().length;
+      if (count > 0 && count <= 50) {
+        $('#button-search-save').removeAttr('disabled');
+      } else if (count == 0 || count > 50) {
+        $('#button-search-save').attr('disabled', true);
+      }
     }
   });
 
@@ -34,6 +36,7 @@ $(function(){
     })
     .done(function(data, status, xhr){  // 成功時
       $('#success-modal').foundation('reveal', 'open');
+      $form.find('#form_title').data('submit-flag', 1);
     })
     .fail(function(xhr, status, errorThrown){  // 失敗時
       $('#failed-modal .error-message').text(status + '：' + errorThrown);

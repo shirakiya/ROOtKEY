@@ -104,10 +104,14 @@
 		'method' => 'POST',
 	)); ?>
 		<label>新しいタイトル
-			<?php echo Form::input('title', '', array('placeholder' => '検索履歴のタイトル')); ?>
+			<?php echo Form::input('title', '', array(
+				'placeholder'      => '検索履歴のタイトル',
+				'data-submit-flag' => 0,
+			)); ?>
 		</label>
 		<?php echo Form::hidden('id', ''); ?>
 		<?php echo Form::button('', '編集', array(
+			'id'    => 'button-search-result-save',
 			'class' => 'button round right',
 			'type'  => 'submit'
 		)); ?>

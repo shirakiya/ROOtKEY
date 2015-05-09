@@ -43,7 +43,10 @@
 						<label for="form_title" class="right inline"><strong>登録名</strong></label>
 					</div>
 					<div class="small-9 columns">
-						<?php echo Form::input('title', '', array('placeholder' => '検索結果の登録名を入力')); ?>
+						<?php echo Form::input('title', '', array(
+							'placeholder'      => '検索結果の登録名を入力',
+							'data-submit-flag' => 0,
+						)); ?>
 					</div>
 				</div>
 			<?php

@@ -13,6 +13,18 @@ $(function(){
     $('#modal-search-result-title-edit').foundation('reveal', 'open');
   });
 
+  // 検索結果登録名文字数の監視
+  $('#form_title').keyup(function(){
+    if ($(this).data('submit-flag') != 1) {
+      var count = $(this).val().length;
+      if (count > 0 && count <= 50) {
+        $('#button-search-result-save').removeAttr('disabled');
+      } else if (count == 0 || count > 50) {
+        $('#button-search-result-save').attr('disabled', true);
+      }
+    }
+  });
+
   /* 編集ボタン押下時 */
   $('#search-result-title-edit').on('submit', function(event){
     // HTMLでの送信をキャンセル
@@ -38,6 +50,8 @@ $(function(){
     })
     .done(function(data, status, xhr){  // 成功時
       $('#search-result-title-edit-success').show('slow');
+      // 検索結果登録名文字数の監視の無効化
+      $form.find('#form_title').data('submit-flag', 1);
     })
     .fail(function(xhr, status, errorThrown){  // 失敗時
       var $alert_box = $('#search-result-title-edit-error');
@@ -54,6 +68,8 @@ $(function(){
     $modal.find('#search-result-title-edit-error').hide();
     // 編集ボタン有効化
     $modal.find('button').removeAttr('disabled');
+    // 検索結果登録名文字数の監視の有効化
+    $modal.find('#form_title').data('submit-flag', 0);
   });
 
   /* 削除アイコン押下時 */
