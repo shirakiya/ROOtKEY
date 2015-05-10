@@ -41,6 +41,10 @@
 }
 
 /* mypage */
+div#item-description {
+  padding-bottom: 1em;
+}
+
 .list-mypage {
   text-align: center;
 }
@@ -71,5 +75,8 @@ a.search-result-edit {
   display: none;
 }
 #search-result-title-edit-error {
+  display: none;
+}
+#search-result-delete-error {
   display: none;
 }

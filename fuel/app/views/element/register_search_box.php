@@ -77,7 +77,7 @@
 <?php // 失敗時メッセージモーダル ?>
 <div id="failed-modal" class="reveal-modal tiny" data-reveal>
 	<div data-alert class="alert-box alert radius">
-		<i class="fa fa-exclamation-triangle"></i> 登録に失敗しました<br>
+		<i class="fa fa-exclamation-triangle"></i> 登録に失敗しました
 		<p class="error-message"></p>
 	</div>
 <div>

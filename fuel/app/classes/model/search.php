@@ -83,6 +83,10 @@ class Model_Search extends \Orm\Model_Soft
 				$val->add_field('title', '登録名', 'required|max_length[50]');
 				$val->add_field('user_id', 'user_id', 'match_user_id');
 				break;
+			case 'delete':
+				$val->add_callable(__class__);
+				$val->add_field('user_id', 'user_id', 'match_user_id');
+				break;
 		}
 
 		return $val;

@@ -59,7 +59,6 @@ class Controller_Api_Search extends Controller_Api
 		// セッション中のユーザーと一致しているか確認する
 		$params['user_id'] = $search->user_id;
 
-		// 登録名のバリデーション
 		$val = Model_Search::validate('save_title');
 		if (!$val->run($params)) {
 			foreach ($val->error_message() as $error_message) {
@@ -86,6 +85,42 @@ class Controller_Api_Search extends Controller_Api
 			'error' => 0,
 			'id'    => $params['id'],
 			'title' => $params['title'],
+		));
+	}
+
+	/**
+	 * 検索結果の削除
+	 */
+	public function post_delete()
+	{
+		$params = Input::post();
+		$search = Model_Search::find($params['id']);
+		// バリデーションパラメータにuser_idを追加
+		// セッション中のユーザーと一致しているか確認する
+		$params['user_id'] = $search->user_id;
+
+		$val = Model_Search::validate('delete');
+		if (!$val->run($params)) {
+			\Log::error($val->error_message('user_id'));
+			throw new ApiHttpServerErrorException;
+		}
+
+		try {
+			DB::start_transaction();
+
+			// 検索結果の削除
+			$search->delete();
+
+			DB::commit_transaction();
+		} catch (Exception $e) {
+			DB::rollback_transaction();
+			\Log::error($e->getMessage());
+			throw ApiHttpServerErrorException;
+		}
+
+		return $this->response(array(
+			'error' => 1,
+			'id'    => $params['id'],
 		));
 	}
 }
