@@ -44,6 +44,10 @@
 		</div>
 	</div>
 </div>
+<?php // 検索ローダー ?>
+<div id="search-loader">
+	<i class="fa fa-spinner fa-pulse"></i>
+</div>
 
 <?php // 検索登録フォーム ?>
 <?php if (isset($user) && isset($is_success)): ?>
