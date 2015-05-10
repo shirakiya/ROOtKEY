@@ -26,6 +26,13 @@
 		</div>
 
 		<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+	<?php if (empty($searches)): ?>
+		<div data-alert class="alert-box warning radius">
+			<strong><i class="fa fa-exclamation-circle"></i> 検索履歴が登録されていません。</strong>
+			<br>
+			検索結果を登録することで、再び検索条件を入力することなくすぐに検索結果にアクセスできるようになります。
+		</div>
+	<?php else: ?>
 		<?php foreach ($searches as $search): ?>
 			<li class="list-mypage">
 				<table class="table-mypage" data-id="<?php echo $search->id; ?>">
@@ -84,6 +91,7 @@
 				</table>
 			</li>
 		<?php endforeach; ?>
+	<?php endif; ?>
 		</ul>
 
 		<div class="pagination-centered">
