@@ -45,11 +45,9 @@ class Model_Search extends \Orm\Model_Soft
 
 	const MODE_DRIVING   = 1;
 	const MODE_WALKING   = 2;
-	const MODE_BICYCLING = 3;
 
 	const MODE_STRING_DRIVING   = 'driving';
 	const MODE_STRING_WALKING   = 'walking';
-	const MODE_STRING_BICYCLING = 'bicycling';
 
 	protected static $_mode = array();
 
@@ -59,7 +57,6 @@ class Model_Search extends \Orm\Model_Soft
 			static::$_mode = array(
 				static::MODE_DRIVING   => static::MODE_STRING_DRIVING,
 				static::MODE_WALKING   => static::MODE_STRING_WALKING,
-				static::MODE_BICYCLING => static::MODE_STRING_BICYCLING,
 			);
 		}
 	}
@@ -75,14 +72,17 @@ class Model_Search extends \Orm\Model_Soft
 		$val = Validation::forge();
 
 		switch ($factory) {
+			// 検索履歴作成
 			case 'save':
 				$val->add_field('title', '登録名', 'required|max_length[50]');
 				break;
+			// 検索履歴更新
 			case 'save_title':
 				$val->add_callable(__class__);
 				$val->add_field('title', '登録名', 'required|max_length[50]');
 				$val->add_field('user_id', 'user_id', 'match_user_id');
 				break;
+			// 検索履歴削除
 			case 'delete':
 				$val->add_callable(__class__);
 				$val->add_field('user_id', 'user_id', 'match_user_id');

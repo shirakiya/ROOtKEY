@@ -62,8 +62,6 @@
 								<?php echo Form::select('mode', $params['mode'], array(
 									Model_Search::MODE_STRING_DRIVING   => __('app.mode.driving'),
 									Model_Search::MODE_STRING_WALKING   => __('app.mode.walking'),
-									Model_Search::MODE_STRING_BICYCLING => __('app.mode.bicycling'),
-									//'transit'   => '公共交通機関',
 								)); ?>
 							</label>
 							<label><strong>検索半径</strong>

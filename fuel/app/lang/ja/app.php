@@ -3,8 +3,7 @@
 return array(
 	'mode' => array(
 		'walking' => '徒歩',
-		'driving' => '車',
-		'bicycling' => '自転車',
+		'driving' => '自動車',
 	),
 
 	'radius' => array(
