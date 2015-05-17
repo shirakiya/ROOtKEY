@@ -1,26 +1,30 @@
-<?php // タイトル ?>
-<?php echo View::forge('element/title'); ?>
+<?php // タイトル ここから ?>
+<div class="rootkey-title">
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="text-center">
+				<h1>ROOtKEY</h1>
+				<p>
+					For Your Happiness Through Your Own Way.<br>
+					あなたのルートにある探し物に出会えるアプリケーション
+				</p>
+			</div>
+		</div>
+	</div>
+</div><?php // タイトル ここまで ?>
 
-<?php // Maps ?>
+<?php // Maps ここから ?>
 <div class="row">
 	<div class="large-12 columns">
 	<?php if ($is_map_shown): ?>
-		<?php
-			$map_view = View::forge('element/map', array(
-				'is_success' => $is_success,
-				'map_class'  => 'map-top',
-			));
-			if ($is_success) {
-				$map_view->set(array(
-					'marker_info' => $marker_info,
-					'search_co'   => $search_co,
-				));
-			}
-			echo  $map_view;
-		?>
+		<?php if ($is_success): ?>
+			<script type="application/json" id="marker_info"><?php echo Format::forge($marker_info)->to_json(); ?></script>
+			<script type="application/json" id="search_co"><?php echo Format::forge($search_co)->to_json(); ?></script>
+		<?php endif; ?>
+		<div id="map_canvas" class="map-top"></div>
 	<?php endif; ?>
 	</div>
-</div>
+</div><?php // Maps ここまで ?>
 
 <?php // エラーメッセージ ?>
 <?php if ($message = Session::get_flash('error')): ?>

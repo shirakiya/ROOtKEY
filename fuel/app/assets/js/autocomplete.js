@@ -27,21 +27,25 @@ $(function(){
       return false;
     }
 
+    // over-layの表示
     $('body').append('<div id="over-lay"></div>');
     $('#over-lay').fadeIn('normal');
+    // ローダーの表示
     centeringLoader();
     $('#search-loader').fadeIn('normal');
   });
 
+  // ローダーのセンタリング
   function centeringLoader(){
-    $search_loader = $('#search-loader');
-    var pxleft = ($(window).width() - $search_loader.outerWidth(true)) / 2;
-    var pxtop  = (window.innerHeight - $search_loader.outerHeight(true)) / 2;
+    $searchLoader = $('#search-loader');
+    var pxleft = ($(window).width() - $searchLoader.outerWidth(true)) / 2;
+    var pxtop  = (window.innerHeight - $searchLoader.outerHeight(true)) / 2;
 
-    $search_loader.css({'left': pxleft + 'px'});
-    $search_loader.css({'top': pxtop + 'px'});
+    $searchLoader.css({'left': pxleft + 'px'});
+    $searchLoader.css({'top': pxtop + 'px'});
   }
 
+  // ブラウザのリサイズを監視
   $(window).on('resize', function(){
     centeringLoader();
   });
