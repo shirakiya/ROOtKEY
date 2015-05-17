@@ -60,19 +60,19 @@
 						<div class="panel-body">
 							<label><strong>移動手段</strong>
 								<?php echo Form::select('mode', $params['mode'], array(
-									Model_Search::MODE_STRING_DRIVING   => '車',
-									Model_Search::MODE_STRING_WALKING   => '徒歩',
-									Model_Search::MODE_STRING_BICYCLING => '自転車',
+									Model_Search::MODE_STRING_DRIVING   => __('app.mode.driving'),
+									Model_Search::MODE_STRING_WALKING   => __('app.mode.walking'),
+									Model_Search::MODE_STRING_BICYCLING => __('app.mode.bicycling'),
 									//'transit'   => '公共交通機関',
 								)); ?>
 							</label>
 							<label><strong>検索半径</strong>
 								<?php echo Form::select('radius', $params['radius'], array(
-									'500'   => '500m',
-									'1000'  => '1km',
-									'2000'  => '2km',
-									'5000'  => '5km',
-									'10000' => '10km',
+									'500'   => __('app.radius.km.500'),
+									'1000'  => __('app.radius.km.1000'),
+									'2000'  => __('app.radius.km.2000'),
+									'5000'  => __('app.radius.km.5000'),
+									'10000' => __('app.radius.km.10000'),
 								)); ?>
 							</label>
 						</div>

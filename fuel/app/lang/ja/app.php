@@ -4,7 +4,7 @@ return array(
 	'mode' => array(
 		'walking' => '徒歩',
 		'driving' => '車',
-		'bycycling' => '自転車',
+		'bicycling' => '自転車',
 	),
 
 	'radius' => array(

@@ -49,7 +49,7 @@ class Model_Search extends \Orm\Model_Soft
 
 	const MODE_STRING_DRIVING   = 'driving';
 	const MODE_STRING_WALKING   = 'walking';
-	const MODE_STRING_BICYCLING = 'bycycling';
+	const MODE_STRING_BICYCLING = 'bicycling';
 
 	protected static $_mode = array();
 

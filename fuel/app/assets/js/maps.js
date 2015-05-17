@@ -63,7 +63,7 @@ function calcRoute() {
     selectMode = google.maps.TravelMode.DRIVING;
   } else if (mode === "walking") {
     selectMode = google.maps.TravelMode.WALKING;
-  } else if (mode === "bycycling") {
+  } else if (mode === "bicycling") {
     selectMode = google.maps.TravelMode.BICYCLING;
   }
 
