@@ -37,29 +37,28 @@
 </div>
 <?php endif; ?>
 
-
-<?php // 検索フォーム ?>
+<?php // 左カラム ?>
 <div class="search-area">
 	<div class="row">
 		<div class="large-7 columns">
-		<?php echo View::forge('element/search_box'); ?>
+		<?php // 検索フォーム ?>
+			<?php echo View::forge('element/search_box'); ?>
+		<?php // 検索登録フォーム ?>
+		<?php if (isset($user) && isset($is_success)): ?>
+			<div class="search-register-area">
+				<?php echo View::forge('element/register_search_box'); ?>
+			</div>
+		<?php endif; ?>
 		</div>
+
+		<?php // 右カラム ?>
 		<div class="large-5 columns">
 		</div>
 	</div>
 </div>
+
 <?php // 検索ローダー ?>
 <div id="search-loader">
 	<i class="fa fa-spinner fa-pulse"></i>
 </div>
 
-<?php // 検索登録フォーム ?>
-<?php if (isset($user) && isset($is_success)): ?>
-<div class="search-register-area">
-	<div class="row">
-		<div class="large-7 columns">
-			<?php echo View::forge('element/register_search_box'); ?>
-		</div>
-	</div>
-</div>
-<?php endif; ?>

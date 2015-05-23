@@ -47,10 +47,10 @@
 	<p>ができるようになります。</p>
 	<div class="login-modal-social-login-button">
 			<a href="<?php echo Uri::create('auth/login/facebook'); ?>" class="Facebook-button-login">
-				<i class="fa fa-facebook-official"></i> Facebookで登録
+				<i class="fa fa-facebook-official"></i> Facebookでログイン
 			</a>
 			<a href="<?php echo Uri::create('auth/login/twitter'); ?>" class="Twitter-button-login">
-				<i class="fa fa-twitter-square"></i> Twitterで登録
+				<i class="fa fa-twitter-square"></i> Twitterでログイン
 			</a>
 	</div>
 	<a class="close-reveal-modal">&#215;</a>
