@@ -4,10 +4,8 @@
 		<div class="large-12 columns">
 			<div class="text-center">
 				<h1>ROOtKEY</h1>
-				<p>
-					For Your Happiness Through Your Own Way.<br>
-					あなたのルートにある探し物に出会えるアプリケーション
-				</p>
+				<h5>For Your Happiness Through Your Own Way.</h5>
+				<h5>あなたのルートにある探し物に出会えるアプリケーション</h5>
 			</div>
 		</div>
 	</div>
@@ -37,22 +35,22 @@
 </div>
 <?php endif; ?>
 
-<?php // 左カラム ?>
-<div class="search-area">
+<div class="top-below-map">
 	<div class="row">
+		<?php // 左カラム ?>
 		<div class="large-7 columns">
-		<?php // 検索フォーム ?>
-			<?php echo View::forge('element/search_box'); ?>
-		<?php // 検索登録フォーム ?>
-		<?php if (isset($user) && isset($is_success)): ?>
-			<div class="search-register-area">
-				<?php echo View::forge('element/register_search_box'); ?>
-			</div>
+			<?php echo View::forge('element/search_box'); // 検索フォーム ?>
+		<?php if (isset($user) && isset($is_success)): // 検索登録フォーム ?>
+			<?php echo View::forge('element/register_search_box'); ?>
 		<?php endif; ?>
 		</div>
 
 		<?php // 右カラム ?>
 		<div class="large-5 columns">
+		<?php if (isset($is_success)): // 検索結果詳細 ?>
+		<?php else: // トップヘルプ ?>
+			<?php echo View::forge('element/top_help.php'); ?>
+		<?php endif; ?>
 		</div>
 	</div>
 </div>
