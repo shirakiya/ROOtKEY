@@ -110,7 +110,7 @@
 		<p class="error-message"></p>
 	</div>
 	<?php echo Form::open(array(
-		'id'     => 'search-result-title-edit',
+		'id'     => 'form-search-result-title-edit',
 		'action' => Uri::create('api/search/save_title'),
 		'method' => 'POST',
 	)); ?>
