@@ -5,9 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title><?php echo $title; ?></title>
 		<?php echo Asset::css('normalize.css'); ?>
-		<?php echo Asset::css('foundation.css'); ?>
+		<?php echo Asset::css('foundation.min.css'); ?>
 		<?php echo Asset::css('font-awesome-4.3.0/css/font-awesome.min.css'); ?>
-		<?php echo Asset::css('rootkey.css'); ?>
+		<?php echo Asset::css('rootkey.min.css'); ?>
 		<?php echo Asset::js('vendor/modernizr.js'); ?>
 	</head>
 	<body>
@@ -16,7 +16,7 @@
 			'user' => $user,
 		)); ?>
 
-		<div class="content">
+		<div id="content">
 			<?php echo $content; ?>
 		</div>
 

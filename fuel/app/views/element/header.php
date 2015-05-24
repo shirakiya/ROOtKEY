@@ -1,4 +1,4 @@
-<div class="fixed">
+<div id="header" class="fixed">
 	<nav class="top-bar" data-topbar tole="navigation" data-option="stricky_on: large">
 		<ul class="title-area">
 			<li class="name">

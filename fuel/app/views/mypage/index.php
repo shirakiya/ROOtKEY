@@ -1,9 +1,9 @@
-<div class="row">
+<div id="mypage" class="row">
 	<div class="large-12 columns">
-		<h2><i class="fa fa-user"></i> マイページ</h2>
-		<h5 class="subheader">ここでは過去の検索履歴が閲覧できます。クリックすると検索画面から結果が見られます。</h5>
-
-		<hr>
+		<div id="page-title">
+			<h2><i class="fa fa-user"></i> マイページ</h2>
+			<h5 class="subheader">ここでは過去の検索履歴が閲覧できます。クリックすると検索画面から結果が見られます。</h5>
+		</div>
 
 		<div id="item-description">
 			<span class="info label"><?php echo __('app.pagination.count_save'); ?></span>
@@ -34,13 +34,11 @@
 		</div>
 	<?php else: ?>
 		<?php foreach ($searches as $search): ?>
-			<li class="list-mypage">
-				<table class="table-mypage" data-id="<?php echo $search->id; ?>">
+			<li class="search-result-list">
+				<table class="search-result-title" data-id="<?php echo $search->id; ?>">
 					<thead>
 						<tr>
-							<th>
-								<?php echo $search->title; ?>
-							</th>
+							<th><?php echo $search->title; ?></th>
 						</tr>
 					</thead>
 				</table>
@@ -49,7 +47,7 @@
 					<img class="th" src="<?php echo Googlemaps::get_static_image_url($search->start, $search->end); ?>">
 				</a>
 
-				<table class="table-mypage">
+				<table class="search-result-detail">
 					<tbody>
 						<tr>
 							<td colspan=2>

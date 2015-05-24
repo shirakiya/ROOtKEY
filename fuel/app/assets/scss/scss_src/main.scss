@@ -1,0 +1,85 @@
+#header {
+}
+
+#content {
+	margin-top: 20px;
+
+	#page-title {
+		border-bottom: 1px #DDDDDD solid;
+		margin-bottom: 0.7em;
+		padding-bottom: 0.5em;
+	}
+
+	#item-description {
+		padding-bottom: 1em;
+	}
+
+	/* top */
+	#top {
+		#title {
+			margin-bottom: 10px;
+		}
+
+		#search-show-map {
+			margin-bottom: 10px;
+
+			#map_canvas {
+				width: 100%;
+				height: 400px;
+			}
+		}
+
+		#top-below-map {
+			padding-top: 10px;
+		}
+
+		.top-help-title-1 {
+			font-size: 1.5em;
+			font-weight: bold;
+			margin-bottom: 0.5em;
+		}
+
+		#register-search-box {
+			.table-register-search {
+				width: 100%;
+			}
+		}
+	}
+
+	/* mypage */
+	#mypage {
+		li.search-result-list {
+			text-align: center;
+
+			table {
+				width: 100%;
+				max-width: 320px;
+				margin: auto;
+			}
+
+			table.search-result-detail {
+				td.grid-3 {
+					width: 100px;
+				}
+
+				td {
+					a.button {
+						width: 100%;
+						margin: auto;
+					}
+
+					a.search-result-delete {
+						color: #424242;
+						float: right;
+					}
+
+					a.search-result-edit {
+						color: #424242;
+						float: right;
+						padding-right: 1em;
+					}
+				}
+			}
+		}
+	}
+}

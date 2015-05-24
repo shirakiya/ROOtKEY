@@ -1,0 +1,55 @@
+$facebookBaseColor: #3b5998;
+$facebookLightColor: #4c70ba;
+$twitterBaseColor: #55acee;
+$twitterLightColor: #83c3f3;
+
+#login-modal {
+	.login-modal-social-login-button {
+		height: auto;
+		text-align: center;
+	}
+
+	@mixin social-login-button($baseColor) {
+		display: inline-block;
+		background-color: $baseColor;
+		height: 45px;
+		margin: 10px;
+		padding: 5px 20px;
+		line-height: 35px;
+		border-radius: 4px;
+		font-size: 1.2em;
+		color: #ffffff;
+		text-align: center;
+	}
+
+	@mixin social-login-button-hovered($baseColor) {
+		background: $baseColor;
+		color: #ffffff;
+	}
+
+	.Facebook-button-login {
+		@include social-login-button($facebookBaseColor);
+	}
+	.Facebook-button-login:hover {
+		@include social-login-button-hovered($facebookLightColor);
+	}
+
+	.Twitter-button-login {
+		@include social-login-button($twitterBaseColor);
+	}
+	.Twitter-button-login:hover {
+		@include social-login-button-hovered($twitterLightColor);
+	}
+}
+
+#search-result-title-edit-success {
+  display: none;
+}
+
+#search-result-title-edit-error {
+  display: none;
+}
+
+#search-result-delete-error {
+  display: none;
+}

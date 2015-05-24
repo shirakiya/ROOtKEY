@@ -52,7 +52,7 @@ $(function(){
     .done(function(data, status, xhr){  // 成功時
       $('#search-result-title-edit-success').show('slow');
       // 登録名を動的に変更する
-      $('table[data-id='+data.id+']').find('th').text(data.title);
+      $('table.search-result-title[data-id='+data.id+']').find('th').text(data.title);
       // 検索結果登録名文字数の監視の無効化
       $form.find('#form_title').data('submit-flag', 1);
     })
@@ -113,7 +113,7 @@ $(function(){
     })
     .done(function(data, status, xhr){  // 成功時
       // 削除した検索結果のDOMを削除する
-      var $search = $('table[data-id='+data.id+']').parent('li');
+      var $search = $('table.search-result-title[data-id='+data.id+']').parent('li');
       $search.hide('slow', function(){ $search.remove(); });
       // -- 登録件数の処理 ここから --
       var $item_desc = $('#item-description');

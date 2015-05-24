@@ -1,4 +1,4 @@
-<div class="register-search-box">
+<div id="register-search-box">
 <?php echo Form::open(array(
 	'id'     => 'search-save',
 	'action' => Uri::create('api/search/save'),
