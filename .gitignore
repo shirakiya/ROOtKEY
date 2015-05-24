@@ -34,3 +34,4 @@ desktop.ini
 
 # mysettings
 /fuel/app/assets/node_modules
+/fuel/app/assets/scss/css_src/*
