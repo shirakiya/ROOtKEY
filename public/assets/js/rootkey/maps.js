@@ -2,7 +2,6 @@ $(function(){
   var directionsDisplay;
   var directionsService = new google.maps.DirectionsService();
 
-  function initialize() {
     directionsDisplay = new google.maps.DirectionsRenderer();
   	var mapOptions = {
   		center: new google.maps.LatLng(35.617932, 139.722558),
@@ -20,7 +19,7 @@ $(function(){
     radius = parseInt($form.find("#form_radius option:selected").val());
 
     var markerInfo = JSON.parse($("#marker_info").text());
-    var searchCo   = JSON.parse($("#search_co").text());
+    //var searchCo   = JSON.parse($("#search_co").text());
 
     if (markerInfo.length > 0) {
       for (var key in markerInfo) {
@@ -57,7 +56,6 @@ $(function(){
     //    new google.maps.Circle(circleOptions);
     //  }
     //}
-  }
 
   function calcRoute() {
     var selectMode = "";
@@ -92,6 +90,15 @@ $(function(){
     });
   }
 
-  google.maps.event.addDomListener(window, 'load', initialize);
-  google.maps.event.addDomListener(window, 'load', calcRoute);
+  function calcDistance() {
+    var distinations = [];
+    console.log(markerInfo);
+    for (var key in markerInfo) {
+      console.log(markerInfo[key]);
+      //distinations.push(key);
+    }
+  }
+
+  calcRoute();
+  calcDistance();
 });
