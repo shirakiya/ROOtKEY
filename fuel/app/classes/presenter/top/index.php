@@ -144,7 +144,7 @@ class Presenter_Top_Index extends Presenter
 		$this->set(array(
 			'is_success'  => true,  // 検索成功フラグ
 			'marker_info' => $marker_info,
-			'search_co'   => $search_co,
+			//'search_co'   => $search_co,
 		));
 	}
 }

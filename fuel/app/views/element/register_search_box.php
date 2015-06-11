@@ -80,4 +80,4 @@
 		<i class="fa fa-exclamation-triangle"></i> 登録に失敗しました
 		<p class="error-message"></p>
 	</div>
-<div>
+</div>

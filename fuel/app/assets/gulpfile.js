@@ -16,7 +16,7 @@ var cssOutputPath  = '../../../public/assets/css';
 
 /* define tasks */
 // scss -> css
-gulp.task('sass', function(){
+gulp.task('scss', function(){
   gulp.src(scssInputPath)
     .pipe(plumber())
     .pipe(sass({ outputStyle: 'expanded' }))
@@ -34,8 +34,8 @@ gulp.task('css', function(){
 
 // watch for scss compile
 gulp.task('watch-scss', function(){
-  gulp.watch(scssInputPath, ['sass', 'css']);
+  gulp.watch(scssInputPath, ['scss', 'css']);
 })
 
 gulp.task('watch', ['watch-scss']);
-gulp.task('default', ['sass', 'css']);
+gulp.task('default', ['scss', 'css']);

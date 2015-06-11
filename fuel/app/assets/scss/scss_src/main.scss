@@ -30,13 +30,46 @@
 		}
 
 		#top-below-map {
-			padding-top: 10px;
+			margin-top: 1em;
 		}
 
-		.top-help-title-1 {
-			font-size: 1.5em;
-			font-weight: bold;
-			margin-bottom: 0.5em;
+		#top-left {
+		}
+
+		#top-right {
+			margin-top: 3em;
+		}
+
+		#search-result-detail {
+			#search-result-detail-content {
+				table#search-result-detail-table {
+					width: 100%;
+
+					tbody {
+						max-height: 600px;
+						overflow: auto;
+					}
+				}
+
+				div#search-result-detail-origin {
+					text-align: right;
+					color: #2E2E2E;
+					font-size: 0.9em;
+				}
+
+				div.distance {
+					color: #2E2E2E;
+					font-size: 0.9em;
+				}
+			}
+		}
+
+		#top-help {
+			.top-help-title-1 {
+				font-size: 1.5em;
+				font-weight: bold;
+				margin-bottom: 0.5em;
+			}
 		}
 
 		#register-search-box {
