@@ -42,14 +42,22 @@ $twitterLightColor: #83c3f3;
 	}
 }
 
-#search-result-title-edit-success {
-  display: none;
+#modal-search-result-title-edit {
+	.alert-box {
+		display: none;
+
+		p {
+			margin: 0px;
+		}
+	}
 }
 
-#search-result-title-edit-error {
-  display: none;
-}
+#modal-search-result-delete {
+	.alert-box {
+		display: none;
 
-#search-result-delete-error {
-  display: none;
+		p {
+			margin: 0px;
+		}
+	}
 }

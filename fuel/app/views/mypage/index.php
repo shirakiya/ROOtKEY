@@ -103,10 +103,10 @@
 <div id="modal-search-result-title-edit" class="reveal-modal small" data-reveal area-hidden="true">
 	<h3><i class="fa fa-pencil"></i> 検索履歴の登録名を編集</h3>
 	<div data-alert id="search-result-title-edit-success" class="alert-box success radius">
-		登録名を編集しました
+		<p>登録名を編集しました</p>
 	</div>
 	<div data-alert id="search-result-title-edit-error" class="alert-box alert radius">
-		<i class="fa fa-exclamation-triangle"></i> 登録に失敗しました
+		<p><i class="fa fa-exclamation-triangle"></i> 登録に失敗しました</p>
 		<p class="error-message"></p>
 	</div>
 	<?php echo Form::open(array(

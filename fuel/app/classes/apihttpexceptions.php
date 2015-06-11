@@ -4,6 +4,15 @@
  */
 
 /**
+ * 400 エラー
+ */
+class ApiHttpBadRequestException extends ApiHttpException
+{
+	protected $code    = 400;
+	protected $message = 'Bad Request';
+}
+
+/**
  * 403 エラー
  */
 class ApiHttpForbiddenException extends ApiHttpException
