@@ -14,15 +14,16 @@ var minifyCss = require('gulp-minify-css');
 
 
 /* define path */
-var dir = {
-  vendor: './js/vendor.js'
+var path = {
+  vendorFile:    './js/vendor.js',
+  jsMainFile:    './js/main.js',
+  jsOutputDir:   '../../../public/assets/js',
+  scssInputDir:  './scss/scss_src/*.scss',
+  scssOutputDir: './scss/scss_src/*.scss',
+  scssOutputDir: './scss/css_src',
+  cssInputDir:   './scss/css_src/*.css',
+  cssOutputDir:  '../../../public/assets/css'
 };
-var jsMainPath     = './js/main.js';
-var jsOutputPath   = '../../../public/assets/js';
-var scssInputPath  = './scss/scss_src/*.scss';
-var scssOutputPath = './scss/css_src';
-var cssInputPath   = './scss/css_src/*.css';
-var cssOutputPath  = '../../../public/assets/css';
 
 
 /* define tasks */
@@ -30,7 +31,7 @@ var cssOutputPath  = '../../../public/assets/css';
 gulp.task('vendor', function(){
   var minifiedFileName = 'vendor.min.js';
   browserify({
-    entries: [dir.vendor],
+    entries: [path.vedorFile],
     extensions: ['.js'],
     require: [
       'jquery',
@@ -44,14 +45,14 @@ gulp.task('vendor', function(){
   .pipe(buffer())
   .pipe(uglify())
   .pipe(size())
-  .pipe(gulp.dest(jsOutputPath));
+  .pipe(gulp.dest(path.jsOutputDir));
 });
 
 // js -> min.js
 gulp.task('js', function(){
   var minifiedFileName = 'rootkey.min.js';
   browserify({
-    entries: [jsMainPath],
+    entries: [path.jsMainFile],
     extensions: ['.js'],
     external: [
       'jquery',
@@ -65,30 +66,30 @@ gulp.task('js', function(){
   .pipe(buffer())
   .pipe(uglify({ preserveComments: 'some' }))
   .pipe(size())
-  .pipe(gulp.dest(jsOutputPath));
+  .pipe(gulp.dest(path.jsOutputDir));
 });
 
 
 // scss -> css
 gulp.task('scss', function(){
-  gulp.src(scssInputPath)
+  gulp.src(path.scssInputDir)
     .pipe(plumber())
     .pipe(sass({ outputStyle: 'expanded' }))
-    .pipe(gulp.dest(scssOutputPath));
+    .pipe(gulp.dest(path.scssOutputDir));
 });
 
 // css -> concat -> minify
 gulp.task('css', function(){
   var minifiedFileName = 'rootkey.min.css';
-  gulp.src(cssInputPath)
+  gulp.src(path.cssInputDir)
     .pipe(concat(minifiedFileName))
     .pipe(minifyCss())
-    .pipe(gulp.dest(cssOutputPath));
+    .pipe(gulp.dest(path.cssOutputDir));
 })
 
 // watch for scss compile
 gulp.task('watch-scss', function(){
-  gulp.watch(scssInputPath, ['scss', 'css']);
+  gulp.watch(path.scssInputDir, ['scss', 'css']);
 })
 
 gulp.task('watch', ['watch-scss']);
