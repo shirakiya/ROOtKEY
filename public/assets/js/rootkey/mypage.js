@@ -58,7 +58,11 @@ $(function(){
     })
     .fail(function(xhr, status, errorThrown){  // 失敗時
       var $alert_box = $('#search-result-title-edit-error');
-      $alert_box.find('.error-message').empty().text(status + '：' + errorThrown);
+      var errorMessage = errorThrown;
+      if (xhr.responseJSON != undefined && xhr.responseJSON.message != undefined) {
+        errorMessage = xhr.responseJSON.message;
+      }
+      $alert_box.find('.error-message').empty().text(status + '：' + errorMessage);
       $alert_box.show('slow');
     });
   });
@@ -149,14 +153,18 @@ $(function(){
     })
     .fail(function(xhr, status, errorThrown){  // 失敗時
       var $alert_box = $('#search-result-delete-error');
-      $alert_box.find('.error-message').empty().text(status + '：' + errorThrown);
+      var errorMessage = errorThrown;
+      if (xhr.responseJSON != undefined && xhr.responseJSON.message != undefined) {
+        errorMessage = xhr.responseJSON.message;
+      }
+      $alert_box.find('.error-message').empty().text(status + '：' + errorMessage);
       $alert_box.show('slow');
     });
   });
 
   /* 削除モーダル格納時 */
   $('#modal-search-result-delete').on('closed.fndtn.reveal', '', function(){
-    var $modal = $('#modal-search-result-title-edit');
+    var $modal = $('#modal-search-result-delete');
     $modal.find('#search-result-delete-error').hide();
     // 編集ボタン有効化
     $modal.find('button').removeAttr('disabled');

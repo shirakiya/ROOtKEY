@@ -5,6 +5,10 @@ class Controller_Api_Search extends Controller_Api
 	public function before()
 	{
 		parent::before();
+
+		if (!isset($this->user)) {
+			throw new ApiHttpForbiddenException(__('error.api.403.message'));
+		}
 	}
 
 	/**
@@ -16,7 +20,7 @@ class Controller_Api_Search extends Controller_Api
 		$val = Model_Search::validate('save');
 		if (!$val->run()) {
 			\Log::error($val->error_message('title'));
-			throw new ApiHttpServerErrorException;
+			throw new ApiHttpBadRequestException(__('error.api.400.message'));
 		}
 
 		// 入力値の保存
@@ -40,7 +44,7 @@ class Controller_Api_Search extends Controller_Api
 		catch (Exception $e) {
 			DB::rollback_transaction();
 			\Log::error($e->getMessage());
-			throw new ApiHttpServerErrorException;
+			throw new ApiHttpServerErrorException();
 		}
 
 		return $this->response(array(
@@ -64,7 +68,7 @@ class Controller_Api_Search extends Controller_Api
 			foreach ($val->error_message() as $error_message) {
 				\Log::error($error_message);
 			}
-			throw new ApiHttpServerErrorException;
+			throw new ApiHttpBadRequestException(__('error.api.400.message'));
 		}
 
 		try {
@@ -78,7 +82,7 @@ class Controller_Api_Search extends Controller_Api
 		} catch (Exception $e) {
 			DB::rollback_transaction();
 			\Log::error($e->getMessage());
-			throw new ApiHttpServerErrorException;
+			throw new ApiHttpServerErrorException();
 		}
 
 		return $this->response(array(
@@ -102,7 +106,7 @@ class Controller_Api_Search extends Controller_Api
 		$val = Model_Search::validate('delete');
 		if (!$val->run($params)) {
 			\Log::error($val->error_message('user_id'));
-			throw new ApiHttpServerErrorException;
+			throw new ApiHttpBadRequestException(__('error.api.400.message'));
 		}
 
 		try {
@@ -115,7 +119,7 @@ class Controller_Api_Search extends Controller_Api
 		} catch (Exception $e) {
 			DB::rollback_transaction();
 			\Log::error($e->getMessage());
-			throw ApiHttpServerErrorException;
+			throw ApiHttpServerErrorException();
 		}
 
 		return $this->response(array(

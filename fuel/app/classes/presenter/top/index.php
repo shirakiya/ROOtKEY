@@ -127,7 +127,7 @@ class Presenter_Top_Index extends Presenter
 
 			foreach ($places->get_places_results() as $place_info) {
 				if (!in_array($place_info['id'], $place_ids)) {
-					$places_ids[] = $place_info['id'];
+					$place_ids[] = $place_info['id'];
 
 					$marker_info[] = array(
 						'id'        => $place_info['id'],
@@ -144,7 +144,7 @@ class Presenter_Top_Index extends Presenter
 		$this->set(array(
 			'is_success'  => true,  // 検索成功フラグ
 			'marker_info' => $marker_info,
-			'search_co'   => $search_co,
+			//'search_co'   => $search_co,
 		));
 	}
 }

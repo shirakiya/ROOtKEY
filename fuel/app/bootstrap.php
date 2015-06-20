@@ -5,9 +5,10 @@ require COREPATH.'bootstrap.php';
 Autoloader::add_core_namespace('Fuel\\App');
 Autoloader::add_classes(array(
 	'Fuel\\App\\ApiHttpException' => APPPATH.'classes/apihttpexception.php',
-	'Fuel\\App\\ApiHttpForbiddenException' => APPPATH.'classes/apihttpexception.php',
-	'Fuel\\App\\ApiHttpNotFoundException' => APPPATH.'classes/apihttpexception.php',
-	'Fuel\\App\\ApiHttpServerErrorException' => APPPATH.'classes/apihttpexception.php',
+	'Fuel\\App\\ApiHttpBadRequestException' => APPPATH.'classes/apihttpexceptions.php',
+	'Fuel\\App\\ApiHttpForbiddenException' => APPPATH.'classes/apihttpexceptions.php',
+	'Fuel\\App\\ApiHttpNotFoundException' => APPPATH.'classes/apihttpexceptions.php',
+	'Fuel\\App\\ApiHttpServerErrorException' => APPPATH.'classes/apihttpexceptions.php',
 	'Fuel\\App\\Asset' => APPPATH.'classes/asset.php',
 	'Fuel\\App\\Googlemaps' => APPPATH.'classes/googlemaps.php',
 	'Fuel\\App\\Pagination' => APPPATH.'classes/pagination.php',

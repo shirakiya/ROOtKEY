@@ -1,3 +1,15 @@
+.markerinfo {
+	max-width: 200px;
+	color: #2c2c2c;
+	font-size: 13px;
+	text-align: left;
+
+	.markerinfo-title {
+		font-weight: bold;
+		font-size: 16px;
+	}
+}
+
 .panel {
 	.white {
 		background-color: #fff;
@@ -17,6 +29,12 @@
 	}
 }
 
+.loader {
+	color: #585858;
+	font-size: 3em;
+	text-align: center;
+}
+
 #over-lay {
 	position: fixed;
 	top: 0;
@@ -28,13 +46,13 @@
 }
 
 #search-loader {
-  width: 2em;
-  margin: 0;
-  padding: 10px 20px;
-  position: fixed;
-  z-index: 3;
-  color: #D8D8D8;
-  font-size: 8em;
-  text-align: center;
-  display: none;
+	width: 2em;
+	margin: 0;
+	padding: 10px 20px;
+	position: fixed;
+	z-index: 3;
+	color: #D8D8D8;
+	font-size: 8em;
+	text-align: center;
+	display: none;
 }
