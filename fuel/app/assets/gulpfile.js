@@ -14,6 +14,9 @@ var minifyCss = require('gulp-minify-css');
 
 
 /* define path */
+var dir = {
+  vendor: './js/vendor.js'
+};
 var jsMainPath     = './js/main.js';
 var jsOutputPath   = '../../../public/assets/js';
 var scssInputPath  = './scss/scss_src/*.scss';
@@ -23,11 +26,39 @@ var cssOutputPath  = '../../../public/assets/css';
 
 
 /* define tasks */
+// vendor.js
+gulp.task('vendor', function(){
+  var minifiedFileName = 'vendor.min.js';
+  browserify({
+    entries: [dir.vendor],
+    extensions: ['.js'],
+    require: [
+      'jquery',
+      'underscore',
+      'backbone',
+      'backbone.marionette'
+    ]
+  })
+  .bundle()
+  .pipe(source(minifiedFileName))
+  .pipe(buffer())
+  .pipe(uglify())
+  .pipe(size())
+  .pipe(gulp.dest(jsOutputPath));
+});
+
+// js -> min.js
 gulp.task('js', function(){
   var minifiedFileName = 'rootkey.min.js';
   browserify({
     entries: [jsMainPath],
     extensions: ['.js'],
+    external: [
+      'jquery',
+      'underscore',
+      'backbone',
+      'backbone.marionette'
+    ]
   })
   .bundle()
   .pipe(source(minifiedFileName))
