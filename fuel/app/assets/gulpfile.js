@@ -19,6 +19,7 @@ var minifyCss = require('gulp-minify-css');
 var path = {
   vendorFile:    './js/vendor.js',
   jsMainFile:    './js/main.js',
+  jsInputDir:    ['./js/main.js', './js/lib/*.js'],
   jsOutputDir:   '../../../public/assets/js',
   scssInputDir:  './scss/scss_src/*.scss',
   scssOutputDir: './scss/scss_src/*.scss',
@@ -33,10 +34,11 @@ var path = {
 gulp.task('vendor', function(){
   var minifiedFileName = 'vendor.min.js';
   browserify({
-    entries: [path.vedorFile],
+    entries: [path.vendorFile],
     extensions: ['.js'],
     require: [
       'jquery',
+      'foundation-sites',
       'underscore',
       'backbone',
       'backbone.marionette'
@@ -62,14 +64,15 @@ gulp.task('watch-js', function(){
 function jsBuild(is_watch){
   b = browserify({
     entries: [path.jsMainFile],
-    extensions: ['.js'],
-    external: [
-      'jquery',
-      'underscore',
-      'backbone',
-      'backbone.marionette'
-    ]
-  });
+    extensions: ['.js']
+  })
+  .external([
+    'jquery',
+    'foundation-sites',
+    'underscore',
+    'backbone',
+    'backbone.marionette'
+  ]);
 
   var bundler;
   if (is_watch) {
