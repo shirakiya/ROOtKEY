@@ -1,4 +1,4 @@
-<div class="search-box">
+<div id="search-box">
 	<h3><i class="fa fa-search"></i> 検索</h3>
 	<div class="panel radius">
 		<?php echo Form::open(array(
@@ -81,6 +81,7 @@
 			<div class="row">
 				<div class="large-12 columns">
 					<?php echo Form::button('', '<i class="fa fa-angle-double-right"></i> <strong>検索</strong>', array(
+						'id'    => 'form-search-button',
 						'class' => 'botton expand',
 						'type'  => 'submit'
 					)); ?>
@@ -88,4 +89,5 @@
 			</div>
 		<?php echo Form::close(); ?>
 	</div>
+	<div id='show-loader'></div>
 </div>

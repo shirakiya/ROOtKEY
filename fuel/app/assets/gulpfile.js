@@ -19,7 +19,6 @@ var minifyCss = require('gulp-minify-css');
 var path = {
   vendorFile:    './js/vendor.js',
   jsMainFile:    './js/main.js',
-  jsInputDir:    ['./js/main.js', './js/lib/*.js'],
   jsOutputDir:   '../../../public/assets/js',
   scssInputDir:  './scss/scss_src/*.scss',
   scssOutputDir: './scss/scss_src/*.scss',

@@ -1,5 +1,6 @@
 'use strict';
 
+// モジュールの取得
 var $ = require('jquery');
 var jQuery = $;
 var foundation = require('foundation-sites');
@@ -8,18 +9,19 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var Marionette = require('backbone.marionette');
 
-var app = new Marionette.Application();
-app.addRegions({
-  body: 'body',
-  header: '#header',
-  content: '#content',
-  footer: '#footer'
-});
 
-app.addInitializer(function(){
+var app = new Marionette.Application();
+
+// ルーターの取得
+var Router = require('./lib/router');
+var myController = require('./lib/mainController');
+
+app.addInitializer(function() {
+  // foundationの初期化
   $(document).foundation();
-  console.log('hoge');
-  console.log(app.body);
+
+  new Router({ controller: myController });
+  Backbone.history.start({pushState: true});
 });
 
 app.start();

@@ -1,4 +1,6 @@
-$(function(){
+var $ = require('jquery');
+
+module.exports = function() {
   /* 編集アイコン押下時 */
   $('.search-result-edit').on('click', function(event){
     // HTMLでの送信をキャンセル
@@ -169,4 +171,4 @@ $(function(){
     // 編集ボタン有効化
     $modal.find('button').removeAttr('disabled');
   });
-});
+};
