@@ -6,8 +6,10 @@ var source     = require('vinyl-source-stream');
 var buffer     = require('vinyl-buffer');
 var uglify     = require('gulp-uglify');
 var size       = require('gulp-size');
+var rename     = require('gulp-rename');
 var watchify   = require('watchify');
 var gutil      = require('gulp-util');
+
 // for CSS
 var sass      = require('gulp-sass');
 var plumber   = require('gulp-plumber');
@@ -81,15 +83,17 @@ function jsBuild(is_watch){
   }
 
   function bundle(){
-    var minifiedFileName = 'rootkey.min.js';
+    var fileName = 'rootkey.js';
     return bundler
       .bundle()
       .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .pipe(source(minifiedFileName))
+      .pipe(source(fileName))
       .pipe(buffer())
+      .pipe(gulp.dest(path.jsOutputDir)) // rootkey.js
       .pipe(uglify({ preserveComments: 'some' }))
+      .pipe(rename({extname: '.min.js'}))
       .pipe(size())
-      .pipe(gulp.dest(path.jsOutputDir));
+      .pipe(gulp.dest(path.jsOutputDir)); // rootkey.min.js
   }
 
   bundler.on('update', function(){
