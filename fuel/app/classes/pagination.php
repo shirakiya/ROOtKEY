@@ -24,4 +24,17 @@ class Pagination extends \Fuel\Core\Pagination
 		}
 		return $this->total_items;
 	}
+
+	/**
+	 * ページング情報を配列にして返す
+	 * @return array
+	 */
+	public function format_response_array()
+	{
+		return array(
+			'total_items' => $this->total_items,
+			'start_num'   => $this->get_start_num(),
+			'end_num'     => $this->get_end_num(),
+		);
+	}
 }
