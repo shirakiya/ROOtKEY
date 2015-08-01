@@ -32,10 +32,12 @@ class Presenter_Mypage_Index extends Presenter
 			$searches[] = $search->format_response_array();
 		}
 
-		$pagination_as_array = $pagination->format_response_array();
+		$search_result_total_items = array(
+			'total_items' => $pagination->total_items,
+		);
 
 		$this->set('searches', $searches, false);
 		$this->set('pagination', $pagination, false);
-		$this->set('pagination_as_array', $pagination_as_array);
+		$this->set('search_result_total_items', $search_result_total_items);
 	}
 }

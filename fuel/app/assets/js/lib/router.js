@@ -9,6 +9,7 @@ module.exports = Marionette.AppRouter.extend({
     ''      : 'top',
     'top'   : 'top',
     'mypage': 'mypage',
-    'mypage/index': 'mypage'
+    'mypage/index': 'mypage',
+    'mypage/index/:id': 'mypage'
   }
 });

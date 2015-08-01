@@ -38,7 +38,7 @@ module.exports = Marionette.ItemView.extend({
     // 登録名監視のイベントをバインド
     this.$editModal.find('#form_title').keyup(this.observeEditInput);
     // 編集フォーム送信時のイベントをバインド
-    this.$editModal.on('submit', {that: this}, this.editSubmit);
+    this.$editModal.on('submit', {self: this}, this.editSubmit);
     // 編集モーダル格納時のイベントをバインド
     this.$editModal.on('closed.fndtn.reveal', this.closeEditModal);
   },
@@ -60,13 +60,13 @@ module.exports = Marionette.ItemView.extend({
   //TODO: thisがeventオブジェクトを指してしまう問題
   editSubmit: function(event) {
     event.preventDefault();
-    event.data.that.editConfirm()
+    event.data.self.editConfirm()
   },
 
   // 編集実行
   editConfirm: function() {
     // 編集ボタン要素を取得
-    var that = this;
+    var self = this;
     var $button = this.$editModal.find('button');
     this.model.set({title: this.$editModal.find('#form_title').val()});
 
@@ -79,14 +79,14 @@ module.exports = Marionette.ItemView.extend({
       },
       success: function(model, response) {
         // 成功メッセージ表示
-        that.$editModal.find('#search-result-title-edit-success').show('slow');
+        self.$editModal.find('#search-result-title-edit-success').show('slow');
         // 登録名を動的に変更する
-        that.ui.title.find('th').text(model.get('title'));
+        self.ui.title.find('th').text(model.get('title'));
         // 登録名文字数監視の無効化
-        that.$editModal.find('#form_title').data('submit-flag', 1)
+        self.$editModal.find('#form_title').data('submit-flag', 1)
       },
       error: function(model, response) {
-        var $alertBox = that.$editModal.find('#search-result-title-edit-error');
+        var $alertBox = self.$editModal.find('#search-result-title-edit-error');
         var errorMessage = response.statusText;
         if (response.responseJSON != undefined && response.responseJSON.message != undefined) {
           errorMessage = response.responseJSON.message;
@@ -120,7 +120,7 @@ module.exports = Marionette.ItemView.extend({
     this.$deleteModal.foundation('reveal', 'open');
 
     // 編集フォーム送信時のイベントをバインド
-    this.$deleteModal.on('submit', {that: this}, this.deleteSubmit);
+    this.$deleteModal.on('submit', {self: this}, this.deleteSubmit);
     // 編集モーダル格納時のイベントをバインド
     this.$deleteModal.on('closed.fndtn.reveal', this.closeDeleteModal);
   },
@@ -128,13 +128,13 @@ module.exports = Marionette.ItemView.extend({
   //TODO: thisがeventオブジェクトを指してしまう問題
   deleteSubmit: function(event) {
     event.preventDefault();
-    event.data.that.deleteConfirm();
+    event.data.self.deleteConfirm();
   },
 
   // 削除実行
   deleteConfirm: function() {
     // 編集ボタン要素を取得
-    var that = this;
+    var self = this;
     var $button = this.$deleteModal.find('button');
 
     this.model.destroy({
@@ -144,10 +144,10 @@ module.exports = Marionette.ItemView.extend({
         $button.attr('disabled', true);
       },
       success: function(model, response) {
-        that.destroy();
+        self.destroy();
       },
       error: function(model, response) {
-        var $alertBox = that.$deleteModal.find('#search-result-delete-error');
+        var $alertBox = self.$deleteModal.find('#search-result-delete-error');
         var errorMessage = response.statusText;
         if (response.responseJSON != undefined && response.responseJSON.message != undefined) {
           errorMessage = response.responseJSON.message;

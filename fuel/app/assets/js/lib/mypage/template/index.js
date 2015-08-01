@@ -5,7 +5,6 @@ module.exports = {
 		'<div id="item-description">' +
 			'<span class="info label">登録件数</span> ' +
 			'<span id="total-items">計 <%= total_items %> 件</span>' +
-		  '<% if(total_items > 1){ %><span id="items-from-to">（<%= start_num %> 件目 〜 <%= end_num %> 件目）</span><% } %>' +
 		'</div>' +
 	  '<ul id="search-result-lists" class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">' +
     '</ul>'

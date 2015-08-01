@@ -135,40 +135,29 @@ class Controller_Api_Search extends Controller_Api
 		));
 	}
 
-	public function get_count($origin_start_num)
+	/**
+	 * 指定したIDの１つ前の検索結果を１つ返す
+	 * @param int $next_id １つ前の検索結果のID
+	 */
+	public function get_prev_one($next_id)
 	{
 		try {
-			Config::load('pagination', true);
-			$per_page = Config::get('pagination.config.mypage.per_page');
+			$search = Model_Search::query()
+				->where('id', '<', $next_id)
+				->order_by('id', 'DESC')
+				->get_one();
 
-			$total_items = Model_Search::query()->where('user_id', $this->user->id)->count();
-
-			// 全検索結果登録数が0件の時
-			if ($total_items === 0) {
-				$start_num = 0;
-				$end_num = 0;
-			}
-			// 全検索結果登録数が1ページちょうどの時
-			elseif ($total_items % $per_page === 0) {
-				$start_num = $origin_start_num - $per_page;
-				$end_num = $total_items;
-			}
-			elseif ($total_items > $per_page) {
-				$start_num = (int)$origin_start_num;
-				$end_num = $per_page;
+			if ($search) {
+				return $this->response(array(
+					'error' => 0,
+					'data' => $search->format_response_array(),
+				));
 			} else {
-				$start_num = (int)$origin_start_num;
-				$end_num = $total_items;
+				return $this->response(array(
+					'error' => 0,
+					'data' => null,
+				));
 			}
-
-			return $this->response(array(
-				'error' => 0,
-				'result' => array(
-					'total_items' => $total_items,
-					'start_num'   => $start_num,
-					'end_num'     => $end_num,
-				),
-			));
 		} catch (Exception $e) {
 			Log::error($e->getMessage());
 			throw new ApiHttpServerErrorException(__('error.api.500.message'));

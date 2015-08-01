@@ -5,13 +5,19 @@
 			<h5 class="subheader">ここでは過去の検索履歴が閲覧できます。クリックすると検索画面から結果が見られます。</h5>
 		</div>
 
-		<script type="application/json" id="pagination-info">
-			<?php echo Format::forge($pagination_as_array)->to_json(); ?>
+		<div class="pagination-centered">
+			<?php echo $pagination->render(); ?>
+		</div>
+
+		<script type="application/json" id="search-result-total-items">
+			<?php echo Format::forge($search_result_total_items)->to_json(); ?>
 		</script>
 		<script type="application/json" id="search-results-info">
 			<?php echo Format::forge($searches)->to_json(); ?>
 		</script>
-		<div id="search-result-container"></div>  <?php // jsが内容をレンダリング ?>
+		<div id="search-result-container">
+			<div id="search-result-loader"><i class="fa fa-spinner fa-pulse"></i></div>
+		</div>
 
 		<div class="pagination-centered">
 			<?php echo $pagination->render(); ?>

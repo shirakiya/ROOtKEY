@@ -1,7 +1,7 @@
 var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
-  urlRoot: null,
+  urlRoot: 'api/search/prev_one/',
   default: {
     id: '',
     user_id: '',
@@ -13,5 +13,11 @@ module.exports = Backbone.Model.extend({
     radius: '',
     search_url: '',
     google_maps_img_url: '',
+  },
+
+  parse: function(response) {
+    if (response.data != null) {
+      return response.data;
+    }
   }
 });

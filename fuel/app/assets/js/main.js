@@ -14,13 +14,13 @@ var app = new Marionette.Application();
 
 // ルーターの取得
 var Router = require('./lib/router');
-var myController = require('./lib/mainController');
+var mainController = require('./lib/mainController');
 
 app.addInitializer(function() {
   // foundationの初期化
   $(document).foundation();
 
-  new Router({ controller: myController });
+  new Router({ controller: mainController });
   Backbone.history.start({pushState: true});
 });
 

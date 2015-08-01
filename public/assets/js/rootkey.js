@@ -15,13 +15,13 @@ var app = new Marionette.Application();
 
 // ルーターの取得
 var Router = require('./lib/router');
-var myController = require('./lib/mainController');
+var mainController = require('./lib/mainController');
 
 app.addInitializer(function() {
   // foundationの初期化
   $(document).foundation();
 
-  new Router({ controller: myController });
+  new Router({ controller: mainController });
   Backbone.history.start({pushState: true});
 });
 
@@ -61,21 +61,9 @@ module.exports = function() {
 var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
-  urlRoot: function() {
-    if (this.get('start_num')) {
-      return '/api/search/count/' + this.get('start_num');
-    } else {
-      return '/api/search/count/';
-    }
-  },
+  urlRoot: null,
   default: {
     'total_items': 0,
-    'start_num': 0,
-    'end_num': 0
-  },
-
-  parse: function(response) {
-    return response.result;
   }
 });
 
@@ -83,7 +71,7 @@ module.exports = Backbone.Model.extend({
 var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
-  urlRoot: null,
+  urlRoot: 'api/search/prev_one/',
   default: {
     id: '',
     user_id: '',
@@ -95,6 +83,12 @@ module.exports = Backbone.Model.extend({
     radius: '',
     search_url: '',
     google_maps_img_url: '',
+  },
+
+  parse: function(response) {
+    if (response.data != null) {
+      return response.data;
+    }
   }
 });
 
@@ -106,7 +100,6 @@ module.exports = {
 		'<div id="item-description">' +
 			'<span class="info label">登録件数</span> ' +
 			'<span id="total-items">計 <%= total_items %> 件</span>' +
-		  '<% if(total_items > 1){ %><span id="items-from-to">（<%= start_num %> 件目 〜 <%= end_num %> 件目）</span><% } %>' +
 		'</div>' +
 	  '<ul id="search-result-lists" class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">' +
     '</ul>'
@@ -219,7 +212,7 @@ module.exports = Marionette.ItemView.extend({
     // 登録名監視のイベントをバインド
     this.$editModal.find('#form_title').keyup(this.observeEditInput);
     // 編集フォーム送信時のイベントをバインド
-    this.$editModal.on('submit', {that: this}, this.editSubmit);
+    this.$editModal.on('submit', {self: this}, this.editSubmit);
     // 編集モーダル格納時のイベントをバインド
     this.$editModal.on('closed.fndtn.reveal', this.closeEditModal);
   },
@@ -241,13 +234,13 @@ module.exports = Marionette.ItemView.extend({
   //TODO: thisがeventオブジェクトを指してしまう問題
   editSubmit: function(event) {
     event.preventDefault();
-    event.data.that.editConfirm()
+    event.data.self.editConfirm()
   },
 
   // 編集実行
   editConfirm: function() {
     // 編集ボタン要素を取得
-    var that = this;
+    var self = this;
     var $button = this.$editModal.find('button');
     this.model.set({title: this.$editModal.find('#form_title').val()});
 
@@ -260,14 +253,14 @@ module.exports = Marionette.ItemView.extend({
       },
       success: function(model, response) {
         // 成功メッセージ表示
-        that.$editModal.find('#search-result-title-edit-success').show('slow');
+        self.$editModal.find('#search-result-title-edit-success').show('slow');
         // 登録名を動的に変更する
-        that.ui.title.find('th').text(model.get('title'));
+        self.ui.title.find('th').text(model.get('title'));
         // 登録名文字数監視の無効化
-        that.$editModal.find('#form_title').data('submit-flag', 1)
+        self.$editModal.find('#form_title').data('submit-flag', 1)
       },
       error: function(model, response) {
-        var $alertBox = that.$editModal.find('#search-result-title-edit-error');
+        var $alertBox = self.$editModal.find('#search-result-title-edit-error');
         var errorMessage = response.statusText;
         if (response.responseJSON != undefined && response.responseJSON.message != undefined) {
           errorMessage = response.responseJSON.message;
@@ -301,7 +294,7 @@ module.exports = Marionette.ItemView.extend({
     this.$deleteModal.foundation('reveal', 'open');
 
     // 編集フォーム送信時のイベントをバインド
-    this.$deleteModal.on('submit', {that: this}, this.deleteSubmit);
+    this.$deleteModal.on('submit', {self: this}, this.deleteSubmit);
     // 編集モーダル格納時のイベントをバインド
     this.$deleteModal.on('closed.fndtn.reveal', this.closeDeleteModal);
   },
@@ -309,13 +302,13 @@ module.exports = Marionette.ItemView.extend({
   //TODO: thisがeventオブジェクトを指してしまう問題
   deleteSubmit: function(event) {
     event.preventDefault();
-    event.data.that.deleteConfirm();
+    event.data.self.deleteConfirm();
   },
 
   // 削除実行
   deleteConfirm: function() {
     // 編集ボタン要素を取得
-    var that = this;
+    var self = this;
     var $button = this.$deleteModal.find('button');
 
     this.model.destroy({
@@ -325,10 +318,10 @@ module.exports = Marionette.ItemView.extend({
         $button.attr('disabled', true);
       },
       success: function(model, response) {
-        that.destroy();
+        self.destroy();
       },
       error: function(model, response) {
-        var $alertBox = that.$deleteModal.find('#search-result-delete-error');
+        var $alertBox = self.$deleteModal.find('#search-result-delete-error');
         var errorMessage = response.statusText;
         if (response.responseJSON != undefined && response.responseJSON.message != undefined) {
           errorMessage = response.responseJSON.message;
@@ -366,14 +359,15 @@ var Template = require('./../template/index');
 var SearchResultView = require('./searchResult');
 var EmptyView = require('./empty');
 
+var SearchResultModel = require('./../model/searchResult');
 var SearchResultsCollection = require('./../collection/searchResults');
-var PaginationModel = require('./../model/pagination');
+var SearchCountModel = require('./../model/searchCount');
 
 module.exports = Marionette.CompositeView.extend({
   el: 'div#search-result-container',
   template: Template.listContainer,
-  model: null,
-  collection: null,
+  model: SearchCountModel,
+  collection: SearchResultsCollection,
 
   childView: SearchResultView,
   childViewContainer: 'ul#search-result-lists',
@@ -381,50 +375,55 @@ module.exports = Marionette.CompositeView.extend({
   emptyView: EmptyView,
 
   initialize: function() {
-    // ページング情報jsonをModelに変換
-    var jsonPagination = JSON.parse($('#pagination-info').text());
-    this.model = new PaginationModel(jsonPagination);
+    // 検索結果情報jsonをModelに変換
+    var jsonSearchResultTotalItems = JSON.parse($('#search-result-total-items').text());
+    this.model = new SearchCountModel(jsonSearchResultTotalItems);
 
     // 検索結果jsonをCollectionに変換
     var jsonSearchResults = JSON.parse($('#search-results-info').text());
     this.collection = new SearchResultsCollection(jsonSearchResults);
+    this.listenTo(this.collection, 'remove', this.removeSearchResult);
+    this.listenTo(this.collection, 'add', this.addSearchResult);
   },
 
+  // 削除後の検索履歴総数更新, リダイレクト
   onRemoveChild: function() {
-    var that = this;
+    var count = this.model.get('total_items') - 1;
+    this.model.set('total_items', count);
+    this.$el.find('#total-items').text('計 ' + count + ' 件');
+  },
+
+  // 検索履歴を削除した時の追加分の取得
+  removeSearchResult: function() {
+    var self = this;
     var itemCount = this.collection.length;
 
-    this.model.fetch({
+    if (this.collection.length === 0) {
+      location.reload();
+      return;
+    }
+
+    // 今現在のCollectionの最後のModelのIDを取得する
+    var lastModelId = this.collection.models[itemCount-1].get('id');
+
+    var addedModel = new SearchResultModel();
+    var url = addedModel.url() + lastModelId;
+
+    addedModel.fetch({
+      url: url,
       success: function(model, response) {
-        // 全検索結果登録数から表示されている最後の件数を引いた時に余りがある場合はもう1件取得する
-        if (model.get('total_items') - model.get('end_num') > 0) {
-          that.addSearchResult();
-        }
-        // 表示すべき最後の件数が9の倍数の場合は1つ下のページにリダイレクトする
-        else if (model.get('end_num') % 9 == 0) {
-          var url = document.URL;
-          if (url.test(/\/\d+$/)) {
-            url.replace(/\/(\d+)/, function(match) {
-              var resource = match - 1;
-              return '/' + resource;
-            });
-          }
-          location.href = url;
+        if (response.data != null) {
+          self.collection.add(model);
         }
       },
-      error: function(modal, response) {
+      error: function(model, response) {
         //TODO: エラー処理
       }
     });
-  },
-
-  addSearchResult: function() {
-    console.log('addSearchResult');
-    console.log(this);
   }
 });
 
-},{"./../collection/searchResults":3,"./../model/pagination":5,"./../template/index":7,"./empty":8,"./searchResult":9,"backbone":"backbone","backbone.marionette":"backbone.marionette","jquery":"jquery"}],11:[function(require,module,exports){
+},{"./../collection/searchResults":3,"./../model/searchCount":5,"./../model/searchResult":6,"./../template/index":7,"./empty":8,"./searchResult":9,"backbone":"backbone","backbone.marionette":"backbone.marionette","jquery":"jquery"}],11:[function(require,module,exports){
 /**
  * ルーターの定義
  * ここではURLに対し実行する処理を定義する
@@ -436,7 +435,8 @@ module.exports = Marionette.AppRouter.extend({
     ''      : 'top',
     'top'   : 'top',
     'mypage': 'mypage',
-    'mypage/index': 'mypage'
+    'mypage/index': 'mypage',
+    'mypage/index/:id': 'mypage'
   }
 });
 

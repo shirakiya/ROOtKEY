@@ -6,14 +6,15 @@ var Template = require('./../template/index');
 var SearchResultView = require('./searchResult');
 var EmptyView = require('./empty');
 
+var SearchResultModel = require('./../model/searchResult');
 var SearchResultsCollection = require('./../collection/searchResults');
-var PaginationModel = require('./../model/pagination');
+var SearchCountModel = require('./../model/searchCount');
 
 module.exports = Marionette.CompositeView.extend({
   el: 'div#search-result-container',
   template: Template.listContainer,
-  model: null,
-  collection: null,
+  model: SearchCountModel,
+  collection: SearchResultsCollection,
 
   childView: SearchResultView,
   childViewContainer: 'ul#search-result-lists',
@@ -21,45 +22,50 @@ module.exports = Marionette.CompositeView.extend({
   emptyView: EmptyView,
 
   initialize: function() {
-    // ページング情報jsonをModelに変換
-    var jsonPagination = JSON.parse($('#pagination-info').text());
-    this.model = new PaginationModel(jsonPagination);
+    // 検索結果情報jsonをModelに変換
+    var jsonSearchResultTotalItems = JSON.parse($('#search-result-total-items').text());
+    this.model = new SearchCountModel(jsonSearchResultTotalItems);
 
     // 検索結果jsonをCollectionに変換
     var jsonSearchResults = JSON.parse($('#search-results-info').text());
     this.collection = new SearchResultsCollection(jsonSearchResults);
+    this.listenTo(this.collection, 'remove', this.removeSearchResult);
+    this.listenTo(this.collection, 'add', this.addSearchResult);
   },
 
+  // 削除後の検索履歴総数更新, リダイレクト
   onRemoveChild: function() {
-    var that = this;
+    var count = this.model.get('total_items') - 1;
+    this.model.set('total_items', count);
+    this.$el.find('#total-items').text('計 ' + count + ' 件');
+  },
+
+  // 検索履歴を削除した時の追加分の取得
+  removeSearchResult: function() {
+    var self = this;
     var itemCount = this.collection.length;
 
-    this.model.fetch({
+    if (this.collection.length === 0) {
+      location.reload();
+      return;
+    }
+
+    // 今現在のCollectionの最後のModelのIDを取得する
+    var lastModelId = this.collection.models[itemCount-1].get('id');
+
+    var addedModel = new SearchResultModel();
+    var url = addedModel.url() + lastModelId;
+
+    addedModel.fetch({
+      url: url,
       success: function(model, response) {
-        // 全検索結果登録数から表示されている最後の件数を引いた時に余りがある場合はもう1件取得する
-        if (model.get('total_items') - model.get('end_num') > 0) {
-          that.addSearchResult();
-        }
-        // 表示すべき最後の件数が9の倍数の場合は1つ下のページにリダイレクトする
-        else if (model.get('end_num') % 9 == 0) {
-          var url = document.URL;
-          if (url.test(/\/\d+$/)) {
-            url.replace(/\/(\d+)/, function(match) {
-              var resource = match - 1;
-              return '/' + resource;
-            });
-          }
-          location.href = url;
+        if (response.data != null) {
+          self.collection.add(model);
         }
       },
-      error: function(modal, response) {
+      error: function(model, response) {
         //TODO: エラー処理
       }
     });
-  },
-
-  addSearchResult: function() {
-    console.log('addSearchResult');
-    console.log(this);
   }
 });
