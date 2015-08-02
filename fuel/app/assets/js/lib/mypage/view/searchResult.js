@@ -144,7 +144,7 @@ module.exports = Marionette.ItemView.extend({
         $button.attr('disabled', true);
       },
       success: function(model, response) {
-        self.destroy();
+        self.$deleteModal.foundation('reveal', 'close');
       },
       error: function(model, response) {
         var $alertBox = self.$deleteModal.find('#search-result-delete-error');
@@ -156,11 +156,6 @@ module.exports = Marionette.ItemView.extend({
         $alertBox.show('slow');
       }
     });
-  },
-
-  onBeforeDestroy: function() {
-    this.$deleteModal.foundation('reveal', 'close');
-    this.$el.hide('slow');
   },
 
   // 削除モーダル格納時アクション
