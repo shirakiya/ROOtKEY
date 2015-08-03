@@ -32,8 +32,8 @@
 			<?php echo Asset::js('rootkey.js'); ?>
 		<?php endif; ?>
 	<?php if ($is_map_shown): ?>
-		<?php //echo Asset::js('rootkey/maps.js'); ?>
-		<?php //echo Asset::js('rootkey/search_save.js'); ?>
+		<?php echo Asset::js('vendor/jquery.js'); ?>
+		<?php echo Asset::js('rootkey/maps.js'); ?>
 	<?php endif; ?>
 	</body>
 </html>

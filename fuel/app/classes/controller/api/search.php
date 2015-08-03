@@ -16,15 +16,15 @@ class Controller_Api_Search extends Controller_Api
 	 */
 	public function post_save()
 	{
+		// 入力値の保存
+		$params = Input::json();
+
 		// 登録名のバリデーション
 		$val = Model_Search::validate('save');
-		if (!$val->run()) {
+		if (!$val->run($params)) {
 			Log::error($val->error_message('title'));
 			throw new ApiHttpBadRequestException(__('error.api.400.message'));
 		}
-
-		// 入力値の保存
-		$params = Input::post();
 
 		try {
 			DB::start_transaction();
@@ -40,16 +40,24 @@ class Controller_Api_Search extends Controller_Api
 			$search->save();
 
 			DB::commit_transaction();
+
+			return $this->response(array(
+				'error' => 0,
+				'data' => array(
+					'title'   => $search->title,
+					'start'   => $search->start,
+					'end'     => $search->end,
+					'keyword' => $search->keyword,
+					'mode'    => $search->mode,
+					'radius'  => $search->radius,
+				),
+			));
 		}
 		catch (Exception $e) {
 			DB::rollback_transaction();
 			Log::error($e->getMessage());
 			throw new ApiHttpServerErrorException(__('error.api.500.message'));
 		}
-
-		return $this->response(array(
-			'error' => 0,
-		));
 	}
 
 	/**

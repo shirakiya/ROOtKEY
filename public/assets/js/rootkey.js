@@ -429,12 +429,38 @@ module.exports = Marionette.AppRouter.extend({
 },{"backbone.marionette":"backbone.marionette"}],12:[function(require,module,exports){
 var $ = require('jquery');
 var SearchBox = require('./view/searchBox');
+var RegisterBox = require('./view/registerBox');
 
 module.exports = function() {
   new SearchBox();
+
+  if (document.getElementById('register-search-box') != null) {
+    new RegisterBox();
+  }
 };
 
-},{"./view/searchBox":14,"jquery":"jquery"}],13:[function(require,module,exports){
+},{"./view/registerBox":15,"./view/searchBox":16,"jquery":"jquery"}],13:[function(require,module,exports){
+var Backbone = require('backbone');
+
+module.exports = Backbone.Model.extend({
+  urlRoot: 'api/search/save',
+  default: {
+    title: '',
+    start: '',
+    end: '',
+    keyword: '',
+    mode: '',
+    radius: 0
+  },
+
+  parse: function(response) {
+    if (response.data != null) {
+      return response.data;
+    }
+  }
+});
+
+},{"backbone":"backbone"}],14:[function(require,module,exports){
 var _ = require('underscore');
 
 module.exports = {
@@ -446,7 +472,87 @@ module.exports = {
   )
 };
 
-},{"underscore":"underscore"}],14:[function(require,module,exports){
+},{"underscore":"underscore"}],15:[function(require,module,exports){
+var $ = require('jquery');
+var Marionette = require('backbone.marionette');
+var foundation = require('foundation-sites');
+var SearchResultModel = require('./../model/searchResult');
+
+module.exports = Marionette.ItemView.extend({
+  el: '#register-search-box',
+  ui: {
+    searchSaveForm: '#search-save',
+    formTitle: '#form_title',
+    formButton: '#button-search-save',
+    successModal: '#success-modal',
+    failedModal: '#failed-modal'
+  },
+  template: false,
+  model: null,
+
+  events: {
+    'submit @ui.searchSaveForm': 'submitForm'
+  },
+
+  initialize: function() {
+    this.bindUIElements();
+    this._observeInput();
+
+    this.model = new SearchResultModel({
+      start: this.ui.searchSaveForm.find('#form_start').val(),
+      end: this.ui.searchSaveForm.find('#form_end').val(),
+      keyword: this.ui.searchSaveForm.find('#form_keyword').val(),
+      mode: this.ui.searchSaveForm.find('#form_mode').val(),
+      radius: this.ui.searchSaveForm.find('#form_radius').val(),
+    });
+  },
+
+  _observeInput: function() {
+    var self = this;
+
+    this.ui.formTitle.keyup(function() {
+      if ($(this).data('submit-flag') != 1) {  // 一度も保存していない場合に限り有効
+        var count = $(this).val().length;
+
+        if (count > 0 && count <= 50) {
+          self.ui.formButton.removeAttr('disabled');
+        } else if (count === 0 || count > 50) {
+          self.ui.formButton.attr('disabled', true);
+        }
+      }
+    });
+  },
+
+  submitForm: function(event) {
+    event.preventDefault();
+    this.ui.searchSaveForm.blur();
+    console.log(event);
+    var self = this;
+
+    this.model.set({title: this.ui.formTitle.val()});
+    var url = this.model.url();
+
+    this.model.save({}, {
+      url: url,
+      timeout: 60000,
+      beforeSend: function() {
+        self.ui.formButton.attr('disabled', true);
+      },
+      success: function(model, response) {
+        self.ui.successModal.foundation('reveal', 'open');
+        self.ui.formTitle.data('submit-flag', 1);
+      },
+      error: function(model, response) {
+        if (response.responseJSON instanceof Object && response.responseJSON.message != null) {
+          self.ui.failedModal.find('.error-message').text(response.responseJSON.message);
+        }
+        self.ui.failedModal.foundation('reveal', 'open');
+      }
+    });
+  }
+});
+
+},{"./../model/searchResult":13,"backbone.marionette":"backbone.marionette","foundation-sites":"foundation-sites","jquery":"jquery"}],16:[function(require,module,exports){
 /*
  * 検索Box
  */
@@ -489,7 +595,7 @@ module.exports = Marionette.ItemView.extend({
   },
 
   // 検索実行時の挙動の定義
-  submitForm: function() {
+  submitForm: function(event) {
     this.ui.formSearch.blur();  // form-searchからフォーカスを外す(enter連打を無効化)
     this.ui.formSearchButton.attr('disabled', true);
     // 既にover-layが画面に表示されている場合はfalseを返して終了
@@ -508,7 +614,7 @@ module.exports = Marionette.ItemView.extend({
   }
 });
 
-},{"./searchLoader":15,"backbone.marionette":"backbone.marionette","jquery":"jquery"}],15:[function(require,module,exports){
+},{"./searchLoader":17,"backbone.marionette":"backbone.marionette","jquery":"jquery"}],17:[function(require,module,exports){
 /*
  * 検索実行時のローダー
  */
@@ -548,4 +654,4 @@ module.exports = Marionette.ItemView.extend({
   }
 });
 
-},{"./../template/loader":13,"backbone.marionette":"backbone.marionette","jquery":"jquery"}]},{},[1]);
+},{"./../template/loader":14,"backbone.marionette":"backbone.marionette","jquery":"jquery"}]},{},[1]);
