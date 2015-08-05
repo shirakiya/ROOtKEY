@@ -50,9 +50,8 @@
 			<div id="top-right" class="large-5 columns">
 			<?php if (isset($is_success)): // 検索結果詳細 ?>
 				<?php echo View::forge('element/search_result_detail.php'); ?>
-			<?php else: // トップヘルプ ?>
-				<?php echo View::forge('element/top_help.php'); ?>
 			<?php endif; ?>
+			<?php echo View::forge('element/top_help.php'); ?>
 			</div>
 		</div>
 	</div>

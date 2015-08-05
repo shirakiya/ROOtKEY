@@ -13,6 +13,7 @@
 					</th>
 				</tr>
 			</thead>
+<!--
 			<tbody>
 				<tr>
 					<td class="table-content-loader">
@@ -22,6 +23,7 @@
 					</td>
 				</tr>
 			</tbody>
+-->
 		</table>
 	</div>
 </div>
