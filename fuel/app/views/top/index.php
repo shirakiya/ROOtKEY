@@ -16,7 +16,7 @@
 		<?php if ($is_map_shown): ?>
 			<?php if ($is_success): ?>
 				<script type="application/json" id="marker_info"><?php echo Format::forge($marker_info)->to_json(); ?></script>
-				<?php /* ?>
+				<?php /* 検索結果に円を表示させたい場合はコメントを外す ?>
 				<script type="application/json" id="search_co"><?php echo Format::forge($search_co)->to_json(); ?></script>
 				<?php */ ?>
 			<?php endif; ?>
