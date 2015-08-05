@@ -16,7 +16,7 @@
 		<?php if ($is_map_shown): ?>
 			<?php if ($is_success): ?>
 				<script type="application/json" id="marker_info"><?php echo Format::forge($marker_info)->to_json(); ?></script>
-				<?php /* ?>
+				<?php /* 検索結果に円を表示させたい場合はコメントを外す ?>
 				<script type="application/json" id="search_co"><?php echo Format::forge($search_co)->to_json(); ?></script>
 				<?php */ ?>
 			<?php endif; ?>
@@ -50,15 +50,9 @@
 			<div id="top-right" class="large-5 columns">
 			<?php if (isset($is_success)): // 検索結果詳細 ?>
 				<?php echo View::forge('element/search_result_detail.php'); ?>
-			<?php else: // トップヘルプ ?>
-				<?php echo View::forge('element/top_help.php'); ?>
 			<?php endif; ?>
+			<?php echo View::forge('element/top_help.php'); ?>
 			</div>
 		</div>
 	</div>
-</div>
-
-<?php // 検索ローダー ?>
-<div id="search-loader">
-	<i class="fa fa-spinner fa-pulse"></i>
 </div>

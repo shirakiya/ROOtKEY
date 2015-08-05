@@ -1,8 +1,7 @@
 <div id="register-search-box">
 <?php echo Form::open(array(
 	'id'     => 'search-save',
-	'action' => Uri::create('api/search/save'),
-	'method' => 'post'
+	'action' => '#',
 )); ?>
 	<fieldset>
 		<legend>検索結果の登録</legend>
@@ -64,20 +63,21 @@
 		</div>
 	</fieldset>
 <?php echo Form::close(); ?>
-</div>
 
-<?php // 成功時メッセージモーダル ?>
-<div id="success-modal" class="reveal-modal tiny" data-reveal>
-	<div data-alert class="alert-box success radius">
-		<i class="fa fa-check-circle"></i> 検索結果を登録しました
+	<?php // 成功時メッセージモーダル ?>
+	<div id="success-modal" class="reveal-modal tiny" data-reveal>
+		<div data-alert class="alert-box success radius">
+			<i class="fa fa-check-circle"></i> 検索結果を登録しました
+		</div>
+		<a href="<?php echo Uri::create('/mypage'); ?>"><i class="fa fa-angle-double-right"></i> 検索結果を一覧で見る</a>
 	</div>
-	<a href="<?php echo Uri::create('/mypage'); ?>"><i class="fa fa-angle-double-right"></i> 検索結果を一覧で見る</a>
-</div>
 
-<?php // 失敗時メッセージモーダル ?>
-<div id="failed-modal" class="reveal-modal tiny" data-reveal>
-	<div data-alert class="alert-box alert radius">
-		<i class="fa fa-exclamation-triangle"></i> 登録に失敗しました
-		<p class="error-message"></p>
+	<?php // 失敗時メッセージモーダル ?>
+	<div id="failed-modal" class="reveal-modal tiny" data-reveal>
+		<div data-alert class="alert-box alert radius">
+			<i class="fa fa-exclamation-triangle"></i> 登録に失敗しました
+			<p class="error-message"></p>
+		</div>
 	</div>
+
 </div>

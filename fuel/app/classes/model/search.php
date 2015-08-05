@@ -138,6 +138,26 @@ class Model_Search extends \Orm\Model_Soft
 	}
 
 	/**
+	 * Model_Searchオブジェクトから配列を返す
+	 * @return Array
+	 */
+	public function format_response_array()
+	{
+		return array(
+			'id' => $this->id,
+			'user_id' => $this->user_id,
+			'title' => $this->title,
+			'start' => $this->start,
+			'end' => $this->end,
+			'keyword' => $this->keyword,
+			'mode' => __('app.mode.'.$this->convert_mode_to_string()),
+			'radius' => __('app.radius.km.'.$this->radius),
+			'search_url' => $this->create_search_url_with_params(),
+			'google_maps_img_url' => Googlemaps::get_static_image_url($this->start, $this->end),
+		);
+	}
+
+	/**
 	 * 検索時のURLパラメータを返す
 	 * @return string URLパラメータ形式の文字列 ex.) start=hoge&end=fuga
 	 */

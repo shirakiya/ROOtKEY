@@ -81,6 +81,17 @@
 
 	/* mypage */
 	#mypage {
+		#search-result-container {
+			#search-result-loader {
+				width: 100%;
+				margin-top: 150px;
+				margin-bottom: 800px;
+				color: #585858;
+				font-size: 8em;
+				text-align: center;
+			}
+		}
+
 		li.search-result-list {
 			text-align: center;
 

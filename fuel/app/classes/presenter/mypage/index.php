@@ -20,14 +20,24 @@ class Presenter_Mypage_Index extends Presenter
 		$pagination = Pagination::forge('default', $config);
 
 		// 検索履歴の取得
-		$searches =
+		$searches_model_obj =
 			$query
 			->order_by('id', 'DESC')
 			->limit($pagination->per_page)
 			->offset($pagination->offset)
 			->get();
 
-		$this->set('searches', $searches);
+		$searches = array();
+		foreach ($searches_model_obj as $search) {
+			$searches[] = $search->format_response_array();
+		}
+
+		$search_result_total_items = array(
+			'total_items' => $pagination->total_items,
+		);
+
+		$this->set('searches', $searches, false);
 		$this->set('pagination', $pagination, false);
+		$this->set('search_result_total_items', $search_result_total_items);
 	}
 }

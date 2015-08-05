@@ -5,92 +5,19 @@
 			<h5 class="subheader">ここでは過去の検索履歴が閲覧できます。クリックすると検索画面から結果が見られます。</h5>
 		</div>
 
-		<div id="item-description">
-			<span class="info label"><?php echo __('app.pagination.count_save'); ?></span>
-			<span id="total-items">
-				<?php echo __('app.pagination.total_items', array('param' => $pagination->total_items)); ?>
-			</span>
-		<?php if ($pagination->total_items > 1): ?>
-			<span id="items-from-to">
-				<?php
-					echo __('app.pagination.from_to', array(
-						'from' => $pagination->get_start_num(),
-						'to'   => $pagination->get_end_num(),
-					));
-				?>
-			</span>
-		<?php endif; ?>
-		</div>
 		<div class="pagination-centered">
 			<?php echo $pagination->render(); ?>
 		</div>
 
-		<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-	<?php if (empty($searches)): ?>
-		<div data-alert class="alert-box warning radius">
-			<strong><i class="fa fa-exclamation-circle"></i> 検索履歴が登録されていません。</strong>
-			<br>
-			検索結果を登録することで、再び検索条件を入力することなくすぐに検索結果にアクセスできるようになります。
+		<script type="application/json" id="search-result-total-items">
+			<?php echo Format::forge($search_result_total_items)->to_json(); ?>
+		</script>
+		<script type="application/json" id="search-results-info">
+			<?php echo Format::forge($searches)->to_json(); ?>
+		</script>
+		<div id="search-result-container">
+			<div id="search-result-loader"><i class="fa fa-spinner fa-pulse"></i></div>
 		</div>
-	<?php else: ?>
-		<?php foreach ($searches as $search): ?>
-			<li class="search-result-list">
-				<table class="search-result-title" data-id="<?php echo $search->id; ?>">
-					<thead>
-						<tr>
-							<th><?php echo $search->title; ?></th>
-						</tr>
-					</thead>
-				</table>
-
-				<a href="<?php echo $search->create_search_url_with_params(); ?>">
-					<img class="th" src="<?php echo Googlemaps::get_static_image_url($search->start, $search->end); ?>">
-				</a>
-
-				<table class="search-result-detail">
-					<tbody>
-						<tr>
-							<td colspan=2>
-								<a href="<?php echo $search->create_search_url_with_params(); ?>" class="button small radius">
-									<i class="fa fa-share"></i> 検索結果を表示する
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="grid-3"><strong>出発地</strong></td>
-							<td><?php echo $search->start; ?></td>
-						</tr>
-						<tr>
-							<td class="grid-3"><strong>目的地</strong></td>
-							<td><?php echo $search->end; ?></td>
-						</tr>
-						<tr>
-							<td class="grid-3"><strong>検索ワード</strong></td>
-							<td><?php echo $search->keyword; ?></td>
-						</tr>
-						<tr>
-							<td class="grid-3"><strong>移動手段</strong></td>
-							<td><?php echo __('app.mode.'.$search->convert_mode_to_string()); ?></td>
-						</tr>
-						<tr>
-							<td class="grid-3"><strong>検索半径</strong></td>
-							<td><?php echo __('app.radius.km.'.$search->radius); ?></td>
-						</tr>
-						<tr>
-							<td colspan=2>
-								<a href="#" class="search-result-delete"><i class="fa fa-trash"></i></a>
-								<a href="#" class="search-result-edit"><i class="fa fa-pencil-square-o"></i></a>
-								<script type="application/json" class="search-result-info">
-									<?php echo Format::forge($search->get_assoc_array(array('id', 'title')))->to_json(); ?>
-								</script>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</li>
-		<?php endforeach; ?>
-	<?php endif; ?>
-		</ul>
 
 		<div class="pagination-centered">
 			<?php echo $pagination->render(); ?>
